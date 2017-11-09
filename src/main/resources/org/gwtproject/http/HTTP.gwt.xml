@@ -18,9 +18,8 @@
 <!-- package must inherit this module.                                      -->
 <!--                                                                        -->
 <module>
-  <inherits name="elemental2.core.Core"/>
+  <inherits name="elemental2.dom.Dom"/>
   <inherits name="com.google.gwt.core.Core"/>
-  <inherits name="com.google.gwt.user.Timer"/>
   <inherits name="com.google.gwt.xhr.XMLHttpRequest"/>
 
   <source path="client" />

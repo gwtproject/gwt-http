@@ -15,8 +15,8 @@
  */
 package org.gwtproject.http.client;
 
-import com.google.gwt.user.client.Timer;
 import com.google.gwt.xhr.client.XMLHttpRequest;
+import elemental2.dom.DomGlobal;
 
 /**
  * An HTTP request that is waiting for a response. Requests can be queried for their pending status
@@ -34,22 +34,11 @@ public class Request {
     return new ResponseImpl(xmlHttpRequest);
   }
 
-  private final RequestCallback callback;
-
   /** The number of milliseconds to wait for this HTTP request to complete. */
   private final int timeoutMillis;
 
-  /**
-   * Timer used to force HTTPRequest timeouts. If the user has not requested a timeout then this
-   * field is null.
-   */
-  private final Timer timer =
-      new Timer() {
-        @Override
-        public void run() {
-          fireOnTimeout();
-        }
-      };
+  /** ID of the timer used to force HTTPRequest timeouts. Only meaningful if timeoutMillis > 0. */
+  private final double timerId;
 
   /**
    * JavaScript XmlHttpRequest object that this Java class wraps. This field is not final because we
@@ -59,9 +48,9 @@ public class Request {
 
   /** Only used for building a {@link com.google.gwt.user.client.rpc.impl.FailedRequest}. */
   protected Request() {
-    callback = null;
     timeoutMillis = 0;
     xmlHttpRequest = null;
+    timerId = 0;
   }
 
   /**
@@ -86,12 +75,13 @@ public class Request {
       throw new IllegalArgumentException();
     }
 
-    this.callback = callback;
     this.timeoutMillis = timeoutMillis;
     this.xmlHttpRequest = xmlHttpRequest;
 
     if (timeoutMillis > 0) {
-      timer.schedule(timeoutMillis);
+      timerId = DomGlobal.setTimeout(args -> fireOnTimeout(callback), timeoutMillis);
+    } else {
+      timerId = 0;
     }
   }
 
@@ -104,7 +94,7 @@ public class Request {
       return;
     }
 
-    timer.cancel();
+    cancelTimer();
 
     /*
      * There is a strange race condition that occurs on Mozilla when you cancel
@@ -164,7 +154,7 @@ public class Request {
       return;
     }
 
-    timer.cancel();
+    cancelTimer();
 
     /*
      * We cannot use cancel here because it would clear the contents of the
@@ -178,10 +168,17 @@ public class Request {
     callback.onResponseReceived(this, response);
   }
 
+  /** Stops the current HTTPRequest timer if there is one. */
+  private void cancelTimer() {
+    if (timeoutMillis > 0) {
+      DomGlobal.clearTimeout(timerId);
+    }
+  }
+
   /*
    * Method called when this request times out.
    */
-  private void fireOnTimeout() {
+  private void fireOnTimeout(RequestCallback callback) {
     if (xmlHttpRequest == null) {
       // the request has been received at this point
       return;
