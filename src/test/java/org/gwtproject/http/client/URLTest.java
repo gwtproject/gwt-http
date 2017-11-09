@@ -55,60 +55,6 @@ public class URLTest extends GWTTestCase {
 
   /**
    * Test method for
-   * {@link org.gwtproject.http.client.URL#decodeComponent(java.lang.String)}.
-   */
-  @SuppressWarnings("deprecation")
-  public void testDecodeComponent() {
-    try {
-      URL.decodeComponent(null);
-      fail("Expected NullPointerException");
-    } catch (NullPointerException ex) {
-      // expected exception was thrown
-    }
-
-    assertEquals("", URL.decodeComponent(""));
-    assertEquals(" ", URL.decodeComponent(" "));
-    assertEquals(" ", URL.decodeComponent("+"));
-    assertEquals(" ", URL.decodeComponent("%20"));
-
-    String actualURLComponent = URL.decodeComponent(ENCODED_URL_COMPONENT);
-    assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
-
-    actualURLComponent = URL.decodeComponent(ENCODED_URL_COMPONENT_QS);
-    assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
-  }
-
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#decodeComponent(java.lang.String,boolean)}.
-   */
-  @SuppressWarnings("deprecation")
-  public void testDecodeComponent2() {
-    try {
-      URL.decodeComponent(null);
-      fail("Expected NullPointerException");
-    } catch (NullPointerException ex) {
-      // expected exception was thrown
-    }
-
-    assertEquals("", URL.decodeComponent("", false));
-    assertEquals("", URL.decodeComponent("", true));
-    assertEquals(" ", URL.decodeComponent(" ", false));
-    assertEquals(" ", URL.decodeComponent(" ", true));
-    assertEquals("+", URL.decodeComponent("+", false));
-    assertEquals(" ", URL.decodeComponent("+", true));
-    assertEquals(" ", URL.decodeComponent("%20", false));
-    assertEquals(" ", URL.decodeComponent("%20", true));
-
-    String actualURLComponent = URL.decodeComponent(ENCODED_URL_COMPONENT, false);
-    assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
-
-    actualURLComponent = URL.decodeComponent(ENCODED_URL_COMPONENT_QS, true);
-    assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
-  }
-
-  /**
-   * Test method for
    * {@link org.gwtproject.http.client.URL#decodePathSegment(java.lang.String,boolean)}.
    */
   public void testDecodePathSegment() {
@@ -177,58 +123,6 @@ public class URLTest extends GWTTestCase {
 
     String actualURL = URL.encode(DECODED_URL);
     assertEquals(ENCODED_URL, actualURL);
-  }
-
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#encodeComponent(java.lang.String)}.
-   */
-  @SuppressWarnings("deprecation")
-  public void testEncodeComponent() {
-    try {
-      URL.encodeComponent(null);
-      fail("Expected NullPointerException");
-    } catch (NullPointerException ex) {
-      // expected exception was thrown
-    }
-
-    assertEquals("", URL.encodeComponent(""));
-    assertEquals("+", URL.encodeComponent(" "));
-
-    String actualURLComponent = URL.encodeComponent(DECODED_URL_COMPONENT);
-    assertEquals(ENCODED_URL_COMPONENT_QS, actualURLComponent);
-  }
-
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#encodeComponent(java.lang.String,boolean)}.
-   */
-  @SuppressWarnings("deprecation")
-  public void testEncodeComponent2() {
-    try {
-      URL.encodeComponent(null, false);
-      fail("Expected NullPointerException");
-    } catch (NullPointerException ex) {
-      // expected exception was thrown
-    }
-
-    try {
-      URL.encodeComponent(null, true);
-      fail("Expected NullPointerException");
-    } catch (NullPointerException ex) {
-      // expected exception was thrown
-    }
-
-    assertEquals("", URL.encodeComponent("", false));
-    assertEquals("", URL.encodeComponent("", true));
-    assertEquals("%20", URL.encodeComponent(" ", false));
-    assertEquals("+", URL.encodeComponent(" ", true));
-
-    String actualURLComponent = URL.encodeComponent(DECODED_URL_COMPONENT, false);
-    assertEquals(ENCODED_URL_COMPONENT, actualURLComponent);
-
-    actualURLComponent = URL.encodeComponent(DECODED_URL_COMPONENT, true);
-    assertEquals(ENCODED_URL_COMPONENT_QS, actualURLComponent);
   }
 
   /**
