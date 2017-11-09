@@ -20,24 +20,16 @@ import org.gwtproject.http.client.RequestTest;
 import org.gwtproject.http.client.ResponseTest;
 import org.gwtproject.http.client.URLTest;
 import org.gwtproject.http.client.UrlBuilderTest;
-import com.google.gwt.junit.tools.GWTTestSuite;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import junit.framework.Test;
-
-/**
- * TODO: document me.
- */
-public class HTTPSuite {
-  public static Test suite() {
-    GWTTestSuite suite = new GWTTestSuite(
-        "Test for suite for the org.gwtproject.http module");
-
-    suite.addTestSuite(URLTest.class);
-    suite.addTestSuite(RequestBuilderTest.class);
-    suite.addTestSuite(RequestTest.class);
-    suite.addTestSuite(ResponseTest.class);
-    suite.addTestSuite(UrlBuilderTest.class);
-
-    return suite;
-  }
-}
+/** Test for suite for the org.gwtproject.http module */
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+  URLTest.class,
+  RequestBuilderTest.class,
+  RequestTest.class,
+  ResponseTest.class,
+  UrlBuilderTest.class
+})
+public class HTTPSuite {}
