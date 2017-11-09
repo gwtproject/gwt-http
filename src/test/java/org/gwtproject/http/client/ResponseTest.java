@@ -16,7 +16,7 @@
 package org.gwtproject.http.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.xhr.client.XMLHttpRequest;
+import elemental2.dom.XMLHttpRequest;
 
 /** */
 public class ResponseTest extends RequestTestBase {
@@ -82,7 +82,7 @@ public class ResponseTest extends RequestTestBase {
 
   public void testGetHeadersOffline() {
     ResponseImpl resp =
-        new ResponseImpl(XMLHttpRequest.create()) {
+        new ResponseImpl(new XMLHttpRequest()) {
           @Override
           protected boolean isResponseReady() {
             return true;

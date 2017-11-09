@@ -15,7 +15,7 @@
  */
 package org.gwtproject.http.client;
 
-import com.google.gwt.xhr.client.XMLHttpRequest;
+import elemental2.dom.XMLHttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,20 +88,20 @@ class ResponseImpl extends Response {
 
   @Override
   public int getStatusCode() {
-    return xmlHttpRequest.getStatus();
+    return (int) xmlHttpRequest.status;
   }
 
   @Override
   public String getStatusText() {
-    return xmlHttpRequest.getStatusText();
+    return xmlHttpRequest.statusText;
   }
 
   @Override
   public String getText() {
-    return xmlHttpRequest.getResponseText();
+    return xmlHttpRequest.responseText;
   }
 
   protected boolean isResponseReady() {
-    return xmlHttpRequest.getReadyState() == XMLHttpRequest.DONE;
+    return xmlHttpRequest.readyState == XMLHttpRequest.DONE;
   }
 }

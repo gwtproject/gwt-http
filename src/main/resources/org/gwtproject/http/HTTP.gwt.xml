@@ -20,7 +20,6 @@
 <module>
   <inherits name="elemental2.dom.Dom"/>
   <inherits name="com.google.gwt.core.Core"/>
-  <inherits name="com.google.gwt.xhr.XMLHttpRequest"/>
 
   <source path="client" />
 </module>

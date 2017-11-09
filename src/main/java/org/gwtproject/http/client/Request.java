@@ -15,8 +15,8 @@
  */
 package org.gwtproject.http.client;
 
-import com.google.gwt.xhr.client.XMLHttpRequest;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.XMLHttpRequest;
 
 /**
  * An HTTP request that is waiting for a response. Requests can be queried for their pending status
@@ -111,7 +111,23 @@ public class Request {
     final XMLHttpRequest xhr = xmlHttpRequest;
     xmlHttpRequest = null;
 
-    xhr.clearOnReadyStateChange();
+    // XXX: this clearOnReadyStateChange() was in com.google.gwt.http.client.Request, do we really
+    // need it (and equivalent) here?
+    // com.google.gwt.xhr.client.XMLHttpRequest has this note:
+    /*
+     * NOTE: Testing discovered that for some bizarre reason, on Mozilla, the
+     * JavaScript <code>XmlHttpRequest.onreadystatechange</code> handler
+     * function maybe still be called after it is deleted. The theory is that the
+     * callback is cached somewhere. Setting it to null or an empty function does
+     * seem to work properly, though.
+     *
+     * On IE, setting onreadystatechange to null (as opposed to an empty function)
+     * sometimes throws an exception.
+     *
+     * End result: *always* set onreadystatechange to an empty function (never to
+     * null).
+     */
+    // xhr.clearOnReadyStateChange();
     xhr.abort();
   }
 
@@ -125,7 +141,7 @@ public class Request {
       return false;
     }
 
-    int readyState = xmlHttpRequest.getReadyState();
+    double readyState = xmlHttpRequest.readyState;
 
     /*
      * Because we are doing asynchronous requests it is possible that we can
@@ -134,14 +150,9 @@ public class Request {
      * open although it is nottechnically true since open implies that the
      * request has not been sent.
      */
-    switch (readyState) {
-      case XMLHttpRequest.OPENED:
-      case XMLHttpRequest.HEADERS_RECEIVED:
-      case XMLHttpRequest.LOADING:
-        return true;
-    }
-
-    return false;
+    return readyState == XMLHttpRequest.OPENED
+        || readyState == XMLHttpRequest.HEADERS_RECEIVED
+        || readyState == XMLHttpRequest.LOADING;
   }
 
   /*

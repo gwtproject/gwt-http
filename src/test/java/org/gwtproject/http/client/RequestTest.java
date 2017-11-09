@@ -16,7 +16,7 @@
 package org.gwtproject.http.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.xhr.client.XMLHttpRequest;
+import elemental2.dom.XMLHttpRequest;
 
 /** TODO: document me. */
 public class RequestTest extends RequestTestBase {
@@ -83,21 +83,21 @@ public class RequestTest extends RequestTestBase {
     }
 
     try {
-      new Request(XMLHttpRequest.create(), -1, callback);
+      new Request(new XMLHttpRequest(), -1, callback);
       fail();
     } catch (IllegalArgumentException ex) {
       // Success.
     }
 
     try {
-      new Request(XMLHttpRequest.create(), -1, null);
+      new Request(new XMLHttpRequest(), -1, null);
       fail();
     } catch (NullPointerException ex) {
       // Success (The Request ctor explicitly throws an NPE).
     }
 
     try {
-      new Request(XMLHttpRequest.create(), 0, callback);
+      new Request(new XMLHttpRequest(), 0, callback);
     } catch (Throwable ex) {
       fail(ex.getMessage());
     }
