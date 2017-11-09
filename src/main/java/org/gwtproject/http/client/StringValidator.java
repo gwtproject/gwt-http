@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -17,15 +17,14 @@ package org.gwtproject.http.client;
 
 /**
  * Utility class for validating strings.
- * 
- * TODO(mmendez): Is there a better place for this?
+ *
+ * <p>TODO(mmendez): Is there a better place for this?
  */
 final class StringValidator {
   /**
    * Returns true if the string is empty or null.
-   * 
+   *
    * @param string to test if null or empty
-   * 
    * @return true if the string is empty or null
    */
   public static boolean isEmptyOrNullString(String string) {
@@ -33,12 +32,11 @@ final class StringValidator {
   }
 
   /**
-   * Throws if <code>value</code> is <code>null</code> or empty. This method
-   * ignores leading and trailing whitespace.
-   * 
+   * Throws if <code>value</code> is <code>null</code> or empty. This method ignores leading and
+   * trailing whitespace.
+   *
    * @param name the name of the value, used in error messages
    * @param value the string value that needs to be validated
-   * 
    * @throws IllegalArgumentException if the string is empty, or all whitespace
    * @throws NullPointerException if the string is <code>null</code>
    */
@@ -55,10 +53,9 @@ final class StringValidator {
 
   /**
    * Throws a {@link NullPointerException} if the value is <code>null</code>.
-   * 
+   *
    * @param name the name of the value, used in error messages
    * @param value the value that needs to be validated
-   * 
    * @throws NullPointerException if the value is <code>null</code>
    */
   public static void throwIfNull(String name, Object value) {
@@ -67,6 +64,5 @@ final class StringValidator {
     }
   }
 
-  private StringValidator() {
-  }
+  private StringValidator() {}
 }

@@ -2,6 +2,7 @@ plugins {
   id "java-library"
   id "maven"
   id "net.ltgt.errorprone" version "0.0.13"
+  id "com.github.sherter.google-java-format" version "0.6"
 }
 
 group = "org.gwtproject.http"
@@ -49,4 +50,8 @@ test {
 
 javadoc {
   options.addBooleanOption("Xdoclint:all,-missing", true)
+}
+
+googleJavaFormat {
+  toolVersion = "1.5"
 }

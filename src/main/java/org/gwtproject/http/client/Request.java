@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -19,15 +19,14 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.xhr.client.XMLHttpRequest;
 
 /**
- * An HTTP request that is waiting for a response. Requests can be queried for
- * their pending status or they can be canceled.
+ * An HTTP request that is waiting for a response. Requests can be queried for their pending status
+ * or they can be canceled.
  */
 public class Request {
 
   /**
-   * Creates a {@link Response} instance for the given JavaScript XmlHttpRequest
-   * object.
-   * 
+   * Creates a {@link Response} instance for the given JavaScript XmlHttpRequest object.
+   *
    * @param xmlHttpRequest xmlHttpRequest object for which we need a response
    * @return a {@link Response} object instance
    */
@@ -37,33 +36,28 @@ public class Request {
 
   private final RequestCallback callback;
 
-  /**
-   * The number of milliseconds to wait for this HTTP request to complete.
-   */
+  /** The number of milliseconds to wait for this HTTP request to complete. */
   private final int timeoutMillis;
 
   /**
-   * Timer used to force HTTPRequest timeouts. If the user has not requested a
-   * timeout then this field is null.
+   * Timer used to force HTTPRequest timeouts. If the user has not requested a timeout then this
+   * field is null.
    */
-  private final Timer timer = new Timer() {
-    @Override
-    public void run() {
-      fireOnTimeout();
-    }
-  };
+  private final Timer timer =
+      new Timer() {
+        @Override
+        public void run() {
+          fireOnTimeout();
+        }
+      };
 
   /**
-   * JavaScript XmlHttpRequest object that this Java class wraps. This field is
-   * not final because we transfer ownership of it to the HTTPResponse object
-   * and set this field to null.
+   * JavaScript XmlHttpRequest object that this Java class wraps. This field is not final because we
+   * transfer ownership of it to the HTTPResponse object and set this field to null.
    */
   private XMLHttpRequest xmlHttpRequest;
 
-  /**
-   * Only used for building a
-   * {@link com.google.gwt.user.client.rpc.impl.FailedRequest}.
-   */
+  /** Only used for building a {@link com.google.gwt.user.client.rpc.impl.FailedRequest}. */
   protected Request() {
     callback = null;
     timeoutMillis = 0;
@@ -72,11 +66,10 @@ public class Request {
 
   /**
    * Constructs an instance of the Request object.
-   * 
+   *
    * @param xmlHttpRequest JavaScript XmlHttpRequest object instance
    * @param timeoutMillis number of milliseconds to wait for a response
    * @param callback callback interface to use for notification
-   * 
    * @throws IllegalArgumentException if timeoutMillis &lt; 0
    * @throws NullPointerException if xmlHttpRequest, or callback are null
    */
@@ -103,8 +96,8 @@ public class Request {
   }
 
   /**
-   * Cancels a pending request. If the request has already been canceled or if
-   * it has timed out no action is taken.
+   * Cancels a pending request. If the request has already been canceled or if it has timed out no
+   * action is taken.
    */
   public void cancel() {
     if (xmlHttpRequest == null) {
@@ -120,7 +113,7 @@ public class Request {
      * has been deleted and during the call to XmlHttpRequest.abort(). So we
      * null the xmlHttpRequest here and that will prevent the
      * fireOnResponseReceived method from calling the callback function.
-     * 
+     *
      * Setting the onreadystatechange handler to null gives us the correct
      * behavior in Mozilla but crashes IE. That is why we have chosen to fixed
      * this in Java by nulling out our reference to the XmlHttpRequest object.
@@ -134,7 +127,7 @@ public class Request {
 
   /**
    * Returns true if this request is waiting for a response.
-   * 
+   *
    * @return true if this request is waiting for a response
    */
   public boolean isPending() {

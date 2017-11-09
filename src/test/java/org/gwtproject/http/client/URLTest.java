@@ -18,9 +18,7 @@ package org.gwtproject.http.client;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.junit.client.GWTTestCase;
 
-/**
- * Tests for the URL utility class.
- */
+/** Tests for the URL utility class. */
 public class URLTest extends GWTTestCase {
 
   private final String DECODED_URL = "http://www.foo \u00E9+bar.com/1_!~*'();/?@&=+$,#";
@@ -34,10 +32,7 @@ public class URLTest extends GWTTestCase {
     return "org.gwtproject.http.HTTP";
   }
 
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#decode(java.lang.String)}.
-   */
+  /** Test method for {@link org.gwtproject.http.client.URL#decode(java.lang.String)}. */
   public void testDecode() {
     try {
       URL.decode(null);
@@ -53,10 +48,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(DECODED_URL, actualURL);
   }
 
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#decodePathSegment(java.lang.String)}.
-   */
+  /** Test method for {@link org.gwtproject.http.client.URL#decodePathSegment(java.lang.String)}. */
   public void testDecodePathSegment() {
     try {
       URL.decodePathSegment(null);
@@ -74,10 +66,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
   }
 
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#decodeQueryString(java.lang.String)}.
-   */
+  /** Test method for {@link org.gwtproject.http.client.URL#decodeQueryString(java.lang.String)}. */
   public void testDecodeQueryString() {
     try {
       URL.decodeQueryString(null);
@@ -106,10 +95,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
   }
 
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#encode(java.lang.String)}.
-   */
+  /** Test method for {@link org.gwtproject.http.client.URL#encode(java.lang.String)}. */
   public void testEncode() {
     try {
       URL.encode(null);
@@ -119,16 +105,13 @@ public class URLTest extends GWTTestCase {
     }
 
     assertEquals("", URL.encode(""));
-    assertEquals("%20",URL.encode(" "));
+    assertEquals("%20", URL.encode(" "));
 
     String actualURL = URL.encode(DECODED_URL);
     assertEquals(ENCODED_URL, actualURL);
   }
 
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#encodePathSegment(java.lang.String)}.
-   */
+  /** Test method for {@link org.gwtproject.http.client.URL#encodePathSegment(java.lang.String)}. */
   public void testEncodePathSegment() {
     try {
       URL.encodePathSegment(null);
@@ -144,10 +127,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(ENCODED_URL_COMPONENT, actualURLComponent);
   }
 
-  /**
-   * Test method for
-   * {@link org.gwtproject.http.client.URL#encodeQueryString(java.lang.String)}.
-   */
+  /** Test method for {@link org.gwtproject.http.client.URL#encodeQueryString(java.lang.String)}. */
   public void testEncodeQueryString() {
     try {
       URL.encodeQueryString(null);

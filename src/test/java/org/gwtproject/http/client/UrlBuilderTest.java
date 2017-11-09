@@ -1,12 +1,12 @@
 /*
  * Copyright 2009 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -16,13 +16,10 @@
 package org.gwtproject.http.client;
 
 import com.google.gwt.junit.client.GWTTestCase;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Test Case for {@link UrlBuilder}.
- */
+/** Test Case for {@link UrlBuilder}. */
 public class UrlBuilderTest extends GWTTestCase {
 
   @Override
@@ -30,16 +27,13 @@ public class UrlBuilderTest extends GWTTestCase {
     return "org.gwtproject.http.HTTP";
   }
 
-  /**
-   * Test that the URL is encoded correctly.
-   */
+  /** Test that the URL is encoded correctly. */
   public void testBuildStringEncode() {
     UrlBuilder builder = new UrlBuilder();
     builder.setHost("google.com");
     builder.setPath("path to file");
     builder.setParameter("the key", "the value");
-    assertEquals("http://google.com/path%20to%20file?the+key=the+value",
-        builder.buildString());
+    assertEquals("http://google.com/path%20to%20file?the+key=the+value", builder.buildString());
 
     builder = new UrlBuilder();
     builder.setHost("google.com");
@@ -57,21 +51,17 @@ public class UrlBuilderTest extends GWTTestCase {
     builder.setHash("hash");
 
     builder.setParameter("a_b", "a+b");
-    assertEquals("http://google.com/path?a_b=a%2Bb#hash",
-                 builder.buildString());
+    assertEquals("http://google.com/path?a_b=a%2Bb#hash", builder.buildString());
 
     builder.setParameter("a_b", "a&b");
-    assertEquals("http://google.com/path?a_b=a%26b#hash",
-                 builder.buildString());
+    assertEquals("http://google.com/path?a_b=a%26b#hash", builder.buildString());
 
     builder.setParameter("a_b", "a%b");
-    assertEquals("http://google.com/path?a_b=a%25b#hash",
-                 builder.buildString());
+    assertEquals("http://google.com/path?a_b=a%25b#hash", builder.buildString());
 
     // Hash characters in the fragment should be encoded (issue #8396)
     builder.setHash("ha#sh#");
-    assertEquals("http://google.com/path?a_b=a%25b#ha%23sh%23",
-        builder.buildString());
+    assertEquals("http://google.com/path?a_b=a%25b#ha%23sh%23", builder.buildString());
   }
 
   public void testBuildStringEntireUrl() {
@@ -91,21 +81,22 @@ public class UrlBuilderTest extends GWTTestCase {
 
     // Host:Port/Path?Param
     builder.setParameter("key", "value");
-    assertEquals("http://google.com:100/path/to/file?key=value",
-        builder.buildString());
+    assertEquals("http://google.com:100/path/to/file?key=value", builder.buildString());
 
     // Host:Port/Path?Param#Hash
     builder.setHash("token");
-    assertEquals("http://google.com:100/path/to/file?key=value#token",
-        builder.buildString());
+    assertEquals("http://google.com:100/path/to/file?key=value#token", builder.buildString());
   }
 
   public void testBuildStringEntireUrlWithReturns() {
     UrlBuilder builder = new UrlBuilder();
-    builder.setHost("google.com").setPort(100).setPath("path/to/file").setParameter(
-        "key", "value").setHash("token");
-    assertEquals("http://google.com:100/path/to/file?key=value#token",
-        builder.buildString());
+    builder
+        .setHost("google.com")
+        .setPort(100)
+        .setPath("path/to/file")
+        .setParameter("key", "value")
+        .setHash("token");
+    assertEquals("http://google.com:100/path/to/file?key=value#token", builder.buildString());
   }
 
   public void testBuildStringParts() {
@@ -225,8 +216,7 @@ public class UrlBuilderTest extends GWTTestCase {
     // List parameter.
     List<String> values = new ArrayList<>();
     builder.setParameter("key", "value0", "value1", "value2");
-    assertEquals("http://google.com?key=value0&key=value1&key=value2",
-        builder.buildString());
+    assertEquals("http://google.com?key=value0&key=value1&key=value2", builder.buildString());
 
     // Remove list parameter.
     builder.removeParameter("key");
@@ -238,14 +228,18 @@ public class UrlBuilderTest extends GWTTestCase {
 
     // The order of query params is not defined, so either URL is acceptable.
     String url = builder.buildString();
-    assertTrue(url.equals("http://google.com?key0=value0&key0=value1&key0=value2&key1=simpleValue")
-        || url.equals("http://google.com?key1=simpleValue&key0=value0&key0=value1&key0=value2"));
+    assertTrue(
+        url.equals("http://google.com?key0=value0&key0=value1&key0=value2&key1=simpleValue")
+            || url.equals(
+                "http://google.com?key1=simpleValue&key0=value0&key0=value1&key0=value2"));
 
     // Empty list of multiple parameters.
     builder.setParameter("key0", "value0", "value1", "value2");
     builder.setParameter("key1", "simpleValue");
-    assertTrue(url.equals("http://google.com?key0=value0&key0=value1&key0=value2&key1=simpleValue")
-        || url.equals("http://google.com?key1=simpleValue&key0=value0&key0=value1&key0=value2"));
+    assertTrue(
+        url.equals("http://google.com?key0=value0&key0=value1&key0=value2&key1=simpleValue")
+            || url.equals(
+                "http://google.com?key1=simpleValue&key0=value0&key0=value1&key0=value2"));
   }
 
   public void testSetParameterToNull() {

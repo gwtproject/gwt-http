@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -15,9 +15,7 @@
  */
 package org.gwtproject.http.client;
 
-/**
- * Wrapper which provides access to the components of an HTTP response.
- */
+/** Wrapper which provides access to the components of an HTTP response. */
 public abstract class Response {
 
   public static final int SC_ACCEPTED = 202;
@@ -60,12 +58,10 @@ public abstract class Response {
   public static final int SC_USE_PROXY = 305;
 
   /**
-   * Returns the value of the requested header or null if the header was not
-   * specified.
-   * 
+   * Returns the value of the requested header or null if the header was not specified.
+   *
    * @param header the header to query for
    * @return the value of response header
-   * 
    * @throws IllegalArgumentException if the header name is empty
    * @throws NullPointerException if the header name is null
    */
@@ -73,42 +69,41 @@ public abstract class Response {
 
   /**
    * Returns an array of HTTP headers associated with this response.
-   * 
-   * @return array of HTTP headers; returns zero length array if there are no
-   *         headers
+   *
+   * @return array of HTTP headers; returns zero length array if there are no headers
    */
   public abstract Header[] getHeaders();
 
   /**
-   * Returns all headers as a single string. The individual headers are
-   * delimited by a CR (U+000D) LF (U+000A) pair. An individual header is
-   * formatted according to <a href="http://ietf.org/rfc/rfc2616"> RFC 2616</a>.
-   * 
+   * Returns all headers as a single string. The individual headers are delimited by a CR (U+000D)
+   * LF (U+000A) pair. An individual header is formatted according to <a
+   * href="http://ietf.org/rfc/rfc2616">RFC 2616</a>.
+   *
    * @return all headers as a single string delimited by CRLF pairs
    */
   public abstract String getHeadersAsString();
 
   /**
    * Returns the HTTP status code that is part of this response.
-   * <p>
-   * The value will be 0 if the request failed (e.g. network error, or the
-   * server <a href="http://www.w3.org/TR/cors">disallowed the request</a>) or
-   * has been aborted (this will generally be the case when leaving the page).
-   * 
+   *
+   * <p>The value will be 0 if the request failed (e.g. network error, or the server <a
+   * href="http://www.w3.org/TR/cors">disallowed the request</a>) or has been aborted (this will
+   * generally be the case when leaving the page).
+   *
    * @return the HTTP status code or 0
    */
   public abstract int getStatusCode();
 
   /**
    * Returns the HTTP status message text.
-   * 
+   *
    * @return the HTTP status message text
    */
   public abstract String getStatusText();
 
   /**
    * Returns the text associated with the response.
-   * 
+   *
    * @return the response text
    */
   public abstract String getText();

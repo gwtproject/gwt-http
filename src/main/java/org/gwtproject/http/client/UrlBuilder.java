@@ -1,12 +1,12 @@
 /*
  * Copyright 2009 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -20,19 +20,15 @@ import java.util.Map;
 
 /**
  * Utility class to build a URL from components.
- * 
- * TODO(jlabanca): Add a constructor that parses an existing URL
+ *
+ * <p>TODO(jlabanca): Add a constructor that parses an existing URL
  */
 public class UrlBuilder {
 
-  /**
-   * The port to use when no port should be specified.
-   */
+  /** The port to use when no port should be specified. */
   public static final int PORT_UNSPECIFIED = Integer.MIN_VALUE;
 
-  /**
-   * A mapping of query parameters to their values.
-   */
+  /** A mapping of query parameters to their values. */
   private Map<String, String[]> listParamMap = new LinkedHashMap<>();
 
   private String protocol = "http";
@@ -43,7 +39,7 @@ public class UrlBuilder {
 
   /**
    * Build the URL and return it as an encoded string.
-   * 
+   *
    * @return the encoded URL string
    */
   public String buildString() {
@@ -72,9 +68,7 @@ public class UrlBuilder {
     char prefix = '?';
     for (Map.Entry<String, String[]> entry : listParamMap.entrySet()) {
       for (String val : entry.getValue()) {
-        url.append(prefix)
-            .append(URL.encodeQueryString(entry.getKey()))
-            .append('=');
+        url.append(prefix).append(URL.encodeQueryString(entry.getKey())).append('=');
         if (val != null) {
           // Also encodes +,& etc.
           url.append(URL.encodeQueryString(val));
@@ -95,7 +89,7 @@ public class UrlBuilder {
 
   /**
    * Remove a query parameter from the map.
-   * 
+   *
    * @param name the parameter name
    */
   public UrlBuilder removeParameter(String name) {
@@ -105,7 +99,7 @@ public class UrlBuilder {
 
   /**
    * Set the hash portion of the location (ex. myAnchor or #myAnchor).
-   * 
+   *
    * @param hash the hash
    */
   public UrlBuilder setHash(String hash) {
@@ -117,9 +111,9 @@ public class UrlBuilder {
   }
 
   /**
-   * Set the host portion of the location (ex. google.com). You can also specify
-   * the port in this method (ex. localhost:8888).
-   * 
+   * Set the host portion of the location (ex. google.com). You can also specify the port in this
+   * method (ex. localhost:8888).
+   *
    * @param host the host
    */
   public UrlBuilder setHost(String host) {
@@ -127,14 +121,12 @@ public class UrlBuilder {
     if (host != null && host.contains(":")) {
       String[] parts = host.split(":");
       if (parts.length > 2) {
-        throw new IllegalArgumentException(
-            "Host contains more than one colon: " + host);
+        throw new IllegalArgumentException("Host contains more than one colon: " + host);
       }
       try {
         setPort(Integer.parseInt(parts[1]));
       } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Could not parse port out of host: "
-            + host);
+        throw new IllegalArgumentException("Could not parse port out of host: " + host);
       }
       host = parts[0];
     }
@@ -143,11 +135,11 @@ public class UrlBuilder {
   }
 
   /**
-   * <p>
-   * Set a query parameter to a list of values. Each value in the list will be
-   * added as its own key/value pair.
-   * 
+   * Set a query parameter to a list of values. Each value in the list will be added as its own
+   * key/value pair.
+   *
    * <h3>Example Output</h3>
+   *
    * {@code ?mykey=value0&mykey=value1&mykey=value2 }
    *
    * @param key the key
@@ -155,8 +147,7 @@ public class UrlBuilder {
    */
   public UrlBuilder setParameter(String key, String... values) {
     assertNotNullOrEmpty(key, "Key cannot be null or empty", false);
-    assertNotNull(values,
-        "Values cannot null. Try using removeParameter instead.");
+    assertNotNull(values, "Values cannot null. Try using removeParameter instead.");
     if (values.length == 0) {
       throw new IllegalArgumentException(
           "Values cannot be empty.  Try using removeParameter instead.");
@@ -167,7 +158,7 @@ public class UrlBuilder {
 
   /**
    * Set the path portion of the location (ex. path/to/file.html).
-   * 
+   *
    * @param path the path
    */
   public UrlBuilder setPath(String path) {
@@ -180,7 +171,7 @@ public class UrlBuilder {
 
   /**
    * Set the port to connect to.
-   * 
+   *
    * @param port the port, or {@link #PORT_UNSPECIFIED}
    */
   public UrlBuilder setPort(int port) {
@@ -190,7 +181,7 @@ public class UrlBuilder {
 
   /**
    * Set the protocol portion of the location (ex. http).
-   * 
+   *
    * @param protocol the protocol
    */
   public UrlBuilder setProtocol(String protocol) {
@@ -212,13 +203,12 @@ public class UrlBuilder {
 
   /**
    * Assert that the value is not null.
-   * 
+   *
    * @param value the value
    * @param message the message to include with any exceptions
    * @throws IllegalArgumentException if value is null
    */
-  private void assertNotNull(Object value, String message)
-      throws IllegalArgumentException {
+  private void assertNotNull(Object value, String message) throws IllegalArgumentException {
     if (value == null) {
       throw new IllegalArgumentException(message);
     }
@@ -226,15 +216,15 @@ public class UrlBuilder {
 
   /**
    * Assert that the value is not null or empty.
-   * 
+   *
    * @param value the value
    * @param message the message to include with any exceptions
    * @param isState if true, throw a state exception instead
    * @throws IllegalArgumentException if value is null
    * @throws IllegalStateException if value is null and isState is true
    */
-  private void assertNotNullOrEmpty(String value, String message,
-      boolean isState) throws IllegalArgumentException {
+  private void assertNotNullOrEmpty(String value, String message, boolean isState)
+      throws IllegalArgumentException {
     if (value == null || value.length() == 0) {
       if (isState) {
         throw new IllegalStateException(message);
