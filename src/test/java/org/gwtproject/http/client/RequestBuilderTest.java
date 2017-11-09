@@ -35,44 +35,6 @@ public class RequestBuilderTest extends RequestTestBase {
     return GWT.getModuleBaseURL() + "testRequestBuilder/";
   }
 
-  /**
-   * HACK: Part of a work around for IE's failure to throw an exception when an
-   * XmlHttpRequest that violates the same origin policy is made.
-   */
-  private static native boolean isIE() /*-{
-    var ua = navigator.userAgent.toLowerCase();
-    return ua.indexOf("msie") != -1; 
-  }-*/;
-
-  /**
-   * HACK: Part of a work around for Safari 2.0.4's failure to throw an
-   * exception when an XmlHttpRequest that violates the same origin policy is
-   * made.
-   */
-  private static native boolean isSafari() /*-{
-    var ua = navigator.userAgent.toLowerCase();
-    return ua.indexOf("webkit") != -1; 
-  }-*/;
-
-  /**
-   * HACK: Part of a work around for FF 3.5's failure to throw an exception when
-   * an XmlHttpRequest that violates the same origin policy is made.
-   */
-  private static native boolean isFirefox35() /*-{
-    var ua = navigator.userAgent.toLowerCase();
-    if (ua.indexOf("gecko") == -1) {
-      return false;
-    }
-    var result = /firefox\/([0-9]+\.[0-9]+)/.exec(ua.toLowerCase());
-    if (result && result.length == 2) {
-      var version = parseFloat(result[1]);
-      if (version >= 3.5) {
-        return true;
-      }
-    }
-    return false;
-  }-*/;
-
   @Override
   public String getModuleName() {
     return "org.gwtproject.http.RequestBuilderTest";
@@ -82,23 +44,12 @@ public class RequestBuilderTest extends RequestTestBase {
    * Test method for
    * {@link org.gwtproject.http.client.RequestBuilder#RequestBuilder(java.lang.String, java.lang.String)}.
    * <p>
-   * NOTE: When running this test against Internet Explorer, the security
-   * settings of IE affect this test. The assumption is that the "Access Data
-   * Sources Across Domains" setting is set to "Disabled". This is the standard
-   * setting for the "Internet" zone, which models the case of a user's browser
-   * sending a request to a foreign website. However, if you are running the
-   * unit tests against a machine running the GWT app which falls into your
-   * "Trusted Sites" or "Local Network" content zone, this setting's value is
-   * different. You will have to change the setting to "Disabled" in these zones
-   * for this test to pass.
-   * <p>
    * Test Cases:
    * <ul>
    * <li>httpMethod == null
    * <li>httpMethod == ""
    * <li>url == null
    * <li>url == ""
-   * <li>url == "www.freebsd.org" - violates same source
    * </ul>
    */
   public void testRequestBuilderStringString() throws RequestException {
@@ -121,49 +72,6 @@ public class RequestBuilderTest extends RequestTestBase {
       fail("IllegalArgumentException should have been throw for construction with empty URL.");
     } catch (IllegalArgumentException ex) {
       // purposely ignored
-    }
-
-    try {
-      RequestBuilder builder = new RequestBuilder(RequestBuilder.GET,
-          "http://www.freebsd.org");
-      builder.sendRequest(null, new RequestCallback() {
-        @Override
-        public void onError(Request request, Throwable exception) {
-          // should never get here
-        }
-
-        @Override
-        public void onResponseReceived(Request request, Response response) {
-          // should never get here
-        }
-      });
-
-      if (isIE() || isSafari() || isFirefox35()) {
-        /*
-         * HACK: Safari 2.0.4 will not throw an exception for XHR's that violate
-         * the same-origin policy. It appears to silently ignore them so we do
-         * not fail this test if we are on Safari and the
-         * RequestPermissionException is not thrown. Even though Safari 3.0.4
-         * does throw an exception in this case, we exclude it anyway.
-         * 
-         * FF3.5 allows XHR's to violate the same-origin policy and offers no
-         * way to disable the feature from the client. Only the server can block
-         * the same origin policy.
-         *
-         * IE with certain configuration of WebDriver does not enforce the same
-         * origin policy.
-         */
-      } else {
-        /*
-         * All other supported browsers throw an exception for XHR's that
-         * violate the same-origin policy; fail the test if we get here.
-         */
-        fail("Expected RequestPermissionException");
-      }
-    } catch (IllegalArgumentException ex) {
-      // purposely ignored
-    } catch (RequestPermissionException ex) {
-      // this is the type of exception that we expect
     }
   }
 
@@ -206,7 +114,6 @@ public class RequestBuilderTest extends RequestTestBase {
     RequestBuilder builder = new RequestBuilder(RequestBuilder.POST,
         getTestBaseURL() + "sendRequest_POST");
     builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
-    builder.setRequestData("method=test+request");
     testSend(builder, SERVLET_POST_RESPONSE);
   }
 
@@ -240,7 +147,7 @@ public class RequestBuilderTest extends RequestTestBase {
     RequestBuilder builder = new RequestBuilder(RequestBuilder.POST,
         getTestBaseURL() + "sendRequest_POST");
     builder.setHeader("Content-Type", "application/x-www-form-urlencoded");
-    testSendRequest(builder, "method=test+request", SERVLET_POST_RESPONSE);
+    testSendRequest(builder, null, SERVLET_POST_RESPONSE);
   }
 
   public void testSendRequest_PUT() throws RequestException {

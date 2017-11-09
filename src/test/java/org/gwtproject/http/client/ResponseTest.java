@@ -35,14 +35,6 @@ public class ResponseTest extends RequestTestBase {
     return GWT.getModuleBaseURL() + "testResponse/";
   }
 
-  private static native boolean isSafari() /*-{
-    var ua = navigator.userAgent.toLowerCase();
-    if (ua.indexOf('safari') != -1) {
-      return true;
-    }
-    return false;
-  }-*/;
-
   private static void raiseUnexpectedException(Throwable exception) {
     fail("Unexpected exception: " + exception.toString());
   }
@@ -68,42 +60,6 @@ public class ResponseTest extends RequestTestBase {
         finishTest();
       }
     });
-  }
-
-  /**
-   * Test method for {@link org.gwtproject.http.client.Response#getStatusCode()}.
-   * DISABLED - we use a newer version of webkit in our hosted browser than
-   * Safari's; we can't reliably distinguish between the two so we disabled the
-   * test
-   */
-  public void disabledTestGetStatusCode_Safari() {
-    if (!isSafari()) {
-      // Only test this on Safari
-      return;
-    }
-
-    executeTest(getHTTPRequestBuilder(getTestBaseURL() + "noResponseText"),
-        new RequestCallback() {
-          @Override
-          public void onError(Request request, Throwable exception) {
-            if (exception instanceof RuntimeException) {
-              finishTest();
-            } else {
-              raiseUnexpectedException(exception);
-            }
-          }
-
-          @Override
-          public void onResponseReceived(Request request, Response response) {
-            try {
-              int statusCode = response.getStatusCode();
-              fail("Unexpected RuntimeException from getStatusCode()");
-            } catch (RuntimeException ex) {
-            }
-
-            finishTest();
-          }
-        });
   }
 
   /**
@@ -138,39 +94,6 @@ public class ResponseTest extends RequestTestBase {
     Header[] headers = resp.getHeaders();
     assertNotNull(headers);
     assertEquals(0, headers.length);
-  }
-
-  /**
-   * Test method for {@link org.gwtproject.http.client.Response#getStatusText()}.
-   */
-  public void disabledTestGetStatusText_Safari() {
-    if (!isSafari()) {
-      // Only test this on Safari
-      return;
-    }
-
-    executeTest(getHTTPRequestBuilder(getTestBaseURL() + "noResponseText"),
-        new RequestCallback() {
-          @Override
-          public void onError(Request request, Throwable exception) {
-            if (exception instanceof RuntimeException) {
-              finishTest();
-            } else {
-              raiseUnexpectedException(exception);
-            }
-          }
-
-          @Override
-          public void onResponseReceived(Request request, Response response) {
-            try {
-              String statusText = response.getStatusText();
-              fail("Unexpected RuntimeException from getStatusText()");
-            } catch (RuntimeException ex) {
-            }
-
-            finishTest();
-          }
-        });
   }
 
   private void executeTest(RequestBuilder builder, RequestCallback callback) {

@@ -22,15 +22,6 @@
   <inherits name="com.google.gwt.core.Core"/>
   <inherits name="com.google.gwt.user.Timer"/>
   <inherits name="com.google.gwt.xhr.XMLHttpRequest"/>
-  <inherits name="com.google.gwt.useragent.UserAgent"/>
-  <source path="client" />
-  <public path="public" />
 
-  <replace-with class="org.gwtproject.http.client.Request.RequestImplIE8And9">
-    <when-type-is class="org.gwtproject.http.client.Request.RequestImpl" />
-    <any>
-      <when-property-is name="user.agent" value="ie8" />
-      <when-property-is name="user.agent" value="ie9" />
-    </any>
-  </replace-with>
+  <source path="client" />
 </module>

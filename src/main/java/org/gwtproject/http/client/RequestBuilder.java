@@ -381,19 +381,12 @@ public class RequestBuilder {
       throws RequestException {
     XMLHttpRequest xmlHttpRequest = XMLHttpRequest.create();
 
-    try {
-      if (user != null && password != null) {
-        xmlHttpRequest.open(httpMethod, url, user, password);
-      } else if (user != null) {
-        xmlHttpRequest.open(httpMethod, url, user);
-      } else {
-        xmlHttpRequest.open(httpMethod, url);
-      }
-    } catch (JavaScriptException e) {
-      RequestPermissionException requestPermissionException = new RequestPermissionException(
-          url);
-      requestPermissionException.initCause(new RequestException(e.getMessage()));
-      throw requestPermissionException;
+    if (user != null && password != null) {
+      xmlHttpRequest.open(httpMethod, url, user, password);
+    } else if (user != null) {
+      xmlHttpRequest.open(httpMethod, url, user);
+    } else {
+      xmlHttpRequest.open(httpMethod, url);
     }
 
     setHeaders(xmlHttpRequest);

@@ -15,7 +15,6 @@
  */
 package org.gwtproject.http.client;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.xhr.client.XMLHttpRequest;
 
@@ -33,63 +32,6 @@ import com.google.gwt.xhr.client.XMLHttpRequest;
 public class Request {
 
   /**
-   * Native implementation associated with {@link Request}. User classes should not use this class
-   * directly.
-   */
-  static class RequestImpl {
-
-    /**
-     * Creates a {@link Response} instance for the given JavaScript XmlHttpRequest object.
-     *
-     * @param xmlHttpRequest xmlHttpRequest object for which we need a response
-     * @return a {@link Response} object instance
-     */
-    Response createResponse(final XMLHttpRequest xmlHttpRequest) {
-      return new ResponseImpl(xmlHttpRequest);
-    }
-  }
-
-  /**
-   * Special {@link RequestImpl} for IE8, IE9 to work around some IE specialities.
-   */
-  static class RequestImplIE8And9 extends RequestImpl {
-
-    @Override
-    Response createResponse(XMLHttpRequest xmlHttpRequest) {
-      return new ResponseImpl(xmlHttpRequest) {
-
-        @Override
-        public int getStatusCode() {
-          /*
-           * http://code.google.com/p/google-web-toolkit/issues/detail?id=5031
-           *
-           * The XMLHTTPRequest object in IE will return a status code of 1223 and drop some
-           * response headers if the server returns a HTTP/204.
-           *
-           * This issue is fixed in IE10.
-           */
-          int statusCode = super.getStatusCode();
-          return (statusCode == 1223) ? SC_NO_CONTENT : statusCode;
-        }
-      };
-    }
-  }
-
-  /*
-   * Although Request is a client-side class, it's a transitive dependency of
-   * some GWT servlet code.  Because GWT.create() isn't safe to call on the
-   * server, we use the "Initialization On Demand Holder" idiom to lazily
-   * initialize the RequestImpl.
-   */
-  private static class ImplHolder {
-    private static final RequestImpl impl = GWT.create(RequestImpl.class);
-
-    public static RequestImpl get() {
-      return impl;
-    }
-  }
-
-  /**
    * Creates a {@link Response} instance for the given JavaScript XmlHttpRequest
    * object.
    * 
@@ -97,7 +39,7 @@ public class Request {
    * @return a {@link Response} object instance
    */
   private static Response createResponse(final XMLHttpRequest xmlHttpRequest) {
-    return ImplHolder.get().createResponse(xmlHttpRequest);
+    return new ResponseImpl(xmlHttpRequest);
   }
 
   private final RequestCallback callback;

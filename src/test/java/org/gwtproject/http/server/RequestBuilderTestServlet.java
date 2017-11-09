@@ -106,17 +106,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     try {
-      String parameter = request.getParameter("method");
-      if ("test request".equals(parameter)) {
-        /*
-         * On Safari 2.0.4, if the HTTP response does not include any response
-         * text the status message will be undefined. So, we make sure that the
-         * post returns some data. See
-         * http://bugs.webkit.org/show_bug.cgi?id=3810.
-         */
-        response.getWriter().print(RequestBuilderTest.SERVLET_POST_RESPONSE);
-        response.setStatus(HttpServletResponse.SC_OK);
-      } else if (request.getPathInfo().equals("/simplePost")) {
+      if (request.getPathInfo().equals("/sendRequest_POST")) {
         response.getWriter().print(RequestBuilderTest.SERVLET_POST_RESPONSE);
         response.setStatus(HttpServletResponse.SC_OK);
       } else {
