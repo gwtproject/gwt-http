@@ -1,0 +1,47 @@
+plugins {
+  id "java-library"
+  id "maven"
+}
+
+group = "org.gwtproject.http"
+version = "HEAD-SNAPSHOT"
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation "com.google.gwt:gwt-user:2.8.2"
+
+  testImplementation "junit:junit:4.12"
+  testImplementation "com.google.gwt:gwt-dev:2.8.2"
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+tasks.withType(JavaCompile) {
+  options.encoding = "UTF-8"
+}
+
+jar {
+  from sourceSets.main.allJava
+}
+
+test {
+  def warDir = file("$buildDir/gwt/www-test")
+  def workDir = file("$buildDir/gwt/work")
+  def cacheDir = file("$buildDir/gwt/cache")
+  doFirst {
+    mkdir(warDir)
+    mkdir(workDir)
+    mkdir(cacheDir)
+  }
+
+  classpath += sourceSets.main.allJava.sourceDirectories + sourceSets.test.allJava.sourceDirectories
+  include "**/*Suite.class"
+  systemProperty("gwt.args", "-ea -draftCompile -batch module -war \"$warDir\" -workDir \"$workDir\"")
+  systemProperty("gwt.persistentunitcachedir", cacheDir)
+}
+
+javadoc {
+  options.addBooleanOption("Xdoclint:none", true)
+}
