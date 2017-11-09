@@ -24,6 +24,7 @@ package org.gwtproject.http.client;
  * 
  * {@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}
  */
+@SuppressWarnings("serial")
 public class RequestTimeoutException extends RequestException {
   private static String formatMessage(int timeoutMillis) {
     return "A request timeout has expired after " + timeoutMillis + " ms";

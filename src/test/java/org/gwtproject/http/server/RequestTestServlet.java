@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * TODO: document me.
  */
+@SuppressWarnings("serial")
 public class RequestTestServlet extends HttpServlet {
 
   @Override

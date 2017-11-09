@@ -34,6 +34,7 @@ package org.gwtproject.http.client;
  * 
  * {@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}
  */
+@SuppressWarnings("serial")
 public class RequestPermissionException extends RequestException {
 
   /**

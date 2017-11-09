@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet component of the
  * {@link org.gwtproject.http.client.RequestBuilderTest RequestBuilderTest}.
  */
+@SuppressWarnings("serial")
 public class RequestBuilderTestServlet extends HttpServlet {
 
   @Override
