@@ -99,8 +99,7 @@ public final class URL {
    * 
    * </li>
    * </ul>
-   * </p>
-   * 
+   *
    * @param decodedURL a string containing URL characters that may require
    *        encoding
    * @return a string with all invalid URL characters escaped
@@ -127,19 +126,15 @@ public final class URL {
    * <pre>- _ . ! ~ * ' ( )</pre>
    * </li>
    * </ul>
-   * </p>
-   * 
+   *
    * <p>
    * Notice that this method <em>does</em> encode the URL component delimiter
-   * characters:<blockquote>
+   * characters:
    * 
    * <pre>
    * ; / ? : &amp; = + $ , #
    * </pre>
-   * 
-   * </blockquote>
-   * </p>
-   * 
+   *
    * @param decodedURLComponent a string containing invalid URL characters
    * @return a string with all invalid URL characters escaped
    * 
@@ -169,18 +164,14 @@ public final class URL {
    * <pre>- _ . ! ~ * ' ( )</pre>
    * </li>
    * </ul>
-   * </p>
-   * 
+   *
    * <p>
    * Notice that this method <em>does</em> encode the URL component delimiter
-   * characters:<blockquote>
+   * characters:
    * 
    * <pre>
    * ; / ? : &amp; = + $ , #
    * </pre>
-   * 
-   * </blockquote>
-   * </p>
    * 
    * @param decodedURLComponent a string containing invalid URL characters
    * @return a string with all invalid URL characters escaped

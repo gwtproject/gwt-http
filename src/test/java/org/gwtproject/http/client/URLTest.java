@@ -55,7 +55,7 @@ public class URLTest extends GWTTestCase {
 
   /**
    * Test method for
-   * {@link org.gwtproject.http.client.URL#decodePathSegment(java.lang.String,boolean)}.
+   * {@link org.gwtproject.http.client.URL#decodePathSegment(java.lang.String)}.
    */
   public void testDecodePathSegment() {
     try {
@@ -127,7 +127,7 @@ public class URLTest extends GWTTestCase {
 
   /**
    * Test method for
-   * {@link org.gwtproject.http.client.URL#encodePathSegment(java.lang.String,boolean)}.
+   * {@link org.gwtproject.http.client.URL#encodePathSegment(java.lang.String)}.
    */
   public void testEncodePathSegment() {
     try {
