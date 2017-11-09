@@ -15,6 +15,12 @@
  */
 package org.gwtproject.http.client;
 
+import static elemental2.core.Global.*;
+
+import elemental2.core.JsString;
+import elemental2.core.RegExp;
+import jsinterop.base.Js;
+
 /**
  * Utility class for the encoding and decoding URLs in their entirety or by
  * their individual components.
@@ -192,31 +198,31 @@ public final class URL {
     return encodeQueryStringImpl(decodedURLComponent);
   }
 
-  private static native String decodeImpl(String encodedURL) /*-{
+  private static String decodeImpl(String encodedURL) {
     return decodeURI(encodedURL);
-  }-*/;
+  }
 
-  private static native String decodePathSegmentImpl(String encodedURLComponent) /*-{
+  private static String decodePathSegmentImpl(String encodedURLComponent) {
     return decodeURIComponent(encodedURLComponent);
-  }-*/;
+  }
 
-  private static native String decodeQueryStringImpl(String encodedURLComponent) /*-{
-    var regexp = /\+/g;
-    return decodeURIComponent(encodedURLComponent.replace(regexp, "%20"));
-  }-*/;
+  private static String decodeQueryStringImpl(String encodedURLComponent) {
+    RegExp regexp = new RegExp("\\+", "g");
+    return decodeURIComponent(Js.<JsString>cast(encodedURLComponent).replace(regexp, "%20"));
+  }
 
-  private static native String encodeImpl(String decodedURL) /*-{
+  private static String encodeImpl(String decodedURL) {
     return encodeURI(decodedURL);
-  }-*/;
+  }
 
-  private static native String encodePathSegmentImpl(String decodedURLComponent) /*-{
+  private static String encodePathSegmentImpl(String decodedURLComponent) {
     return encodeURIComponent(decodedURLComponent);
-  }-*/;
+  }
 
-  private static native String encodeQueryStringImpl(String decodedURLComponent) /*-{
-    var regexp = /%20/g;
-    return encodeURIComponent(decodedURLComponent).replace(regexp, "+");
-  }-*/;
+  private static String encodeQueryStringImpl(String decodedURLComponent) {
+    RegExp regexp = new RegExp("%20", "g");
+    return Js.<JsString>cast(encodeURIComponent(decodedURLComponent)).replace(regexp, "+");
+  }
 
   private URL() {
   }
