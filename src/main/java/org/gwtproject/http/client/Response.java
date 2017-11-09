@@ -17,12 +17,6 @@ package org.gwtproject.http.client;
 
 /**
  * Wrapper which provides access to the components of an HTTP response.
- * 
- * <h3>Required Module</h3>
- * Modules that use this class should inherit
- * <code>org.gwtproject.http.HTTP</code>.
- * 
- * {@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}
  */
 public abstract class Response {
 

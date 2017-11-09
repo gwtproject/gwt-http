@@ -21,13 +21,6 @@ import com.google.gwt.xhr.client.XMLHttpRequest;
 /**
  * An HTTP request that is waiting for a response. Requests can be queried for
  * their pending status or they can be canceled.
- * 
- * <h3>Required Module</h3> Modules that use this class should inherit
- * <code>org.gwtproject.http.HTTP</code>.
- * 
- * {@gwt.include
- * com/google/gwt/examples/http/InheritsExample.gwt.xml}
- * 
  */
 public class Request {
 

@@ -18,12 +18,6 @@ package org.gwtproject.http.client;
 /**
  * The primary interface a caller must implement to receive a response to a
  * {@link org.gwtproject.http.client.Request}.
- * 
- * <h3>Required Module</h3>
- * Modules that use this interface should inherit
- * <code>org.gwtproject.http.HTTP</code>.
- * 
- * {@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}
  */
 public interface RequestCallback {
 

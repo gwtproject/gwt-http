@@ -17,12 +17,6 @@ package org.gwtproject.http.client;
 
 /**
  * Thrown to indicate that an HTTP request has timed out.
- * 
- * <h3>Required Module</h3>
- * Modules that use this class should inherit
- * <code>org.gwtproject.http.HTTP</code>.
- * 
- * {@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}
  */
 @SuppressWarnings("serial")
 public class RequestTimeoutException extends RequestException {

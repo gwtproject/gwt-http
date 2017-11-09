@@ -23,13 +23,6 @@ import java.util.Map;
 
 /**
  * Builder for constructing {@link org.gwtproject.http.client.Request} objects.
- * 
- * <h3>Required Module</h3> Modules that use this class should inherit
- * <code>org.gwtproject.http.HTTP</code>.
- * 
- * {@gwt.include
- * com/google/gwt/examples/http/InheritsExample.gwt.xml}
- * 
  */
 public class RequestBuilder {
   /**

@@ -24,12 +24,6 @@ import jsinterop.base.Js;
 /**
  * Utility class for the encoding and decoding URLs in their entirety or by
  * their individual components.
- * 
- * <h3>Required Module</h3>
- * Modules that use this class should inherit
- * <code>org.gwtproject.http.HTTP</code>.
- * 
- * {@gwt.include com/google/gwt/examples/http/InheritsExample.gwt.xml}
  */
 public final class URL {
 
