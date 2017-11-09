@@ -15,7 +15,6 @@
  */
 package org.gwtproject.http.client;
 
-import com.google.gwt.core.client.JavaScriptException;
 import elemental2.core.Function;
 import elemental2.dom.Event;
 import elemental2.dom.XMLHttpRequest;
@@ -372,7 +371,7 @@ public class RequestBuilder {
 
     try {
       xmlHttpRequest.send(requestData);
-    } catch (JavaScriptException e) {
+    } catch (Throwable e) {
       throw new RequestException(e.getMessage());
     }
 
@@ -390,7 +389,7 @@ public class RequestBuilder {
       for (Map.Entry<String, String> header : headers.entrySet()) {
         try {
           xmlHttpRequest.setRequestHeader(header.getKey(), header.getValue());
-        } catch (JavaScriptException e) {
+        } catch (Throwable e) {
           throw new RequestException(e.getMessage());
         }
       }

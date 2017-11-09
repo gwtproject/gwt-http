@@ -19,7 +19,6 @@
 <!--                                                                        -->
 <module>
   <inherits name="elemental2.dom.Dom"/>
-  <inherits name="com.google.gwt.core.Core"/>
 
   <source path="client" />
 </module>
