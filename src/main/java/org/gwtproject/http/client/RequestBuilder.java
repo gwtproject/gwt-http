@@ -16,7 +16,6 @@
 package org.gwtproject.http.client;
 
 import com.google.gwt.core.client.JavaScriptException;
-import com.google.gwt.xhr.client.ReadyStateChangeHandler;
 import com.google.gwt.xhr.client.XMLHttpRequest;
 
 import java.util.HashMap;
@@ -292,7 +291,7 @@ public class RequestBuilder {
     StringValidator.throwIfEmptyOrNull("value", value);
 
     if (headers == null) {
-      headers = new HashMap<String, String>();
+      headers = new HashMap<>();
     }
 
     headers.put(header, value);
@@ -405,12 +404,10 @@ public class RequestBuilder {
     final Request request = new Request(xmlHttpRequest, timeoutMillis, callback);
 
     // Must set the onreadystatechange handler before calling send().
-    xmlHttpRequest.setOnReadyStateChange(new ReadyStateChangeHandler() {
-      public void onReadyStateChange(XMLHttpRequest xhr) {
-        if (xhr.getReadyState() == XMLHttpRequest.DONE) {
-          xhr.clearOnReadyStateChange();
-          request.fireOnResponseReceived(callback);
-        }
+    xmlHttpRequest.setOnReadyStateChange(xhr -> {
+      if (xhr.getReadyState() == XMLHttpRequest.DONE) {
+        xhr.clearOnReadyStateChange();
+        request.fireOnResponseReceived(callback);
       }
     });
 

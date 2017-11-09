@@ -44,7 +44,7 @@ class ResponseImpl extends Response {
   public Header[] getHeaders() {
     String allHeaders = getHeadersAsString();
     String[] unparsedHeaders = allHeaders.split("\n");
-    List<Header> parsedHeaders = new ArrayList<Header>();
+    List<Header> parsedHeaders = new ArrayList<>();
 
     for (String unparsedHeader : unparsedHeaders) {
 

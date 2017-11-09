@@ -223,7 +223,7 @@ public class UrlBuilderTest extends GWTTestCase {
     assertEquals("http://google.com", builder.buildString());
 
     // List parameter.
-    List<String> values = new ArrayList<String>();
+    List<String> values = new ArrayList<>();
     builder.setParameter("key", "value0", "value1", "value2");
     assertEquals("http://google.com?key=value0&key=value1&key=value2",
         builder.buildString());

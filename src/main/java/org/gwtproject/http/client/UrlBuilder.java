@@ -33,7 +33,7 @@ public class UrlBuilder {
   /**
    * A mapping of query parameters to their values.
    */
-  private Map<String, String[]> listParamMap = new LinkedHashMap<String, String[]>();
+  private Map<String, String[]> listParamMap = new LinkedHashMap<>();
 
   private String protocol = "http";
   private String host = null;

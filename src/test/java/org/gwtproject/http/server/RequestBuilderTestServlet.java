@@ -45,47 +45,55 @@ public class RequestBuilderTestServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     String pathInfo = request.getPathInfo();
-    if (pathInfo.equals("/setRequestHeader")) {
-      String value = request.getHeader("Foo");
-      if (value.equals("Bar1")) {
+    switch (pathInfo) {
+      case "/setRequestHeader":
+        String value = request.getHeader("Foo");
+        if (value.equals("Bar1")) {
+          response.setStatus(HttpServletResponse.SC_OK);
+          response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        } else {
+          response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        break;
+      case "/send_GET":
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        break;
+      case "/sendRequest_GET":
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        break;
+      case "/setTimeout/timeout":
+        // cause a timeout on the client
+        try {
+          Thread.sleep(5000);
+        } catch (InterruptedException e) {
+        }
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
-      } else {
+        break;
+      case "/setTimeout/noTimeout":
+        // wait but not long enough to timeout
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        break;
+      case "/user/pass":
+        String auth = request.getHeader("Authorization");
+        if (auth == null) {
+          response.setHeader("WWW-Authenticate", "BASIC");
+          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        } else {
+          response.setStatus(HttpServletResponse.SC_OK);
+          response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        }
+        break;
+      default:
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-      }
-    } else if (pathInfo.equals("/send_GET")) {
-      response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().write(RequestBuilderTest.SERVLET_GET_RESPONSE);
-    } else if (pathInfo.equals("/sendRequest_GET")) {
-      response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().write(RequestBuilderTest.SERVLET_GET_RESPONSE);
-    } else if (pathInfo.equals("/setTimeout/timeout")) {
-      // cause a timeout on the client
-      try {
-        Thread.sleep(5000);
-      } catch (InterruptedException e) {
-      }
-      response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
-    } else if (pathInfo.equals("/setTimeout/noTimeout")) {
-      // wait but not long enough to timeout
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-      }
-      response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
-    } else if (pathInfo.equals("/user/pass")) {
-      String auth = request.getHeader("Authorization");
-      if (auth == null) {
-        response.setHeader("WWW-Authenticate", "BASIC");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-      } else {
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
-      }
-    } else {
-      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        break;
     }
   }
 
