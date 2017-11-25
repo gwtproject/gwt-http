@@ -17,8 +17,8 @@ package org.gwtproject.http.client;
 
 import static elemental2.core.Global.*;
 
+import elemental2.core.JsRegExp;
 import elemental2.core.JsString;
-import elemental2.core.RegExp;
 import jsinterop.base.Js;
 
 /**
@@ -165,7 +165,7 @@ public final class URL {
   }
 
   private static String decodeQueryStringImpl(String encodedURLComponent) {
-    RegExp regexp = new RegExp("\\+", "g");
+    JsRegExp regexp = new JsRegExp("\\+", "g");
     return decodeURIComponent(Js.<JsString>cast(encodedURLComponent).replace(regexp, "%20"));
   }
 
@@ -178,7 +178,7 @@ public final class URL {
   }
 
   private static String encodeQueryStringImpl(String decodedURLComponent) {
-    RegExp regexp = new RegExp("%20", "g");
+    JsRegExp regexp = new JsRegExp("%20", "g");
     return Js.<JsString>cast(encodeURIComponent(decodedURLComponent)).replace(regexp, "+");
   }
 

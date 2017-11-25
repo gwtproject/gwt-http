@@ -15,12 +15,9 @@
  */
 package org.gwtproject.http.client;
 
-import elemental2.core.Function;
-import elemental2.dom.Event;
 import elemental2.dom.XMLHttpRequest;
 import java.util.HashMap;
 import java.util.Map;
-import jsinterop.annotations.JsFunction;
 import jsinterop.base.Js;
 
 /** Builder for constructing {@link org.gwtproject.http.client.Request} objects. */
@@ -342,32 +339,29 @@ public class RequestBuilder {
 
     // Must set the onreadystatechange handler before calling send().
     xmlHttpRequest.onreadystatechange =
-        (Function)
-            (OnreadystatechangeCallbackFn)
-                evt -> {
-                  if (xmlHttpRequest.readyState == XMLHttpRequest.DONE) {
-                    // XXX: this clearOnReadyStateChange() was in
-                    // com.google.gwt.http.client.Request, do we really need it (and equivalent)
-                    // here?
-                    // com.google.gwt.xhr.client.XMLHttpRequest has this note:
-                    /*
-                     * NOTE: Testing discovered that for some bizarre reason, on Mozilla, the
-                     * JavaScript <code>XmlHttpRequest.onreadystatechange</code> handler
-                     * function maybe still be called after it is deleted. The theory is that the
-                     * callback is cached somewhere. Setting it to null or an empty function does
-                     * seem to work properly, though.
-                     *
-                     * On IE, setting onreadystatechange to null (as opposed to an empty function)
-                     * sometimes throws an exception.
-                     *
-                     * End result: *always* set onreadystatechange to an empty function (never to
-                     * null).
-                     */
-                    //    xhr.clearOnReadyStateChange();
-                    request.fireOnResponseReceived(callback);
-                  }
-                  return Js.undefined();
-                };
+        evt -> {
+          if (xmlHttpRequest.readyState == XMLHttpRequest.DONE) {
+            // XXX: this clearOnReadyStateChange() was in
+            // com.google.gwt.http.client.Request, do we really need it (and equivalent) here?
+            // com.google.gwt.xhr.client.XMLHttpRequest has this note:
+            /*
+             * NOTE: Testing discovered that for some bizarre reason, on Mozilla, the
+             * JavaScript <code>XmlHttpRequest.onreadystatechange</code> handler
+             * function maybe still be called after it is deleted. The theory is that the
+             * callback is cached somewhere. Setting it to null or an empty function does
+             * seem to work properly, though.
+             *
+             * On IE, setting onreadystatechange to null (as opposed to an empty function)
+             * sometimes throws an exception.
+             *
+             * End result: *always* set onreadystatechange to an empty function (never to
+             * null).
+             */
+            //    xhr.clearOnReadyStateChange();
+            request.fireOnResponseReceived(callback);
+          }
+          return Js.undefined();
+        };
 
     try {
       xmlHttpRequest.send(requestData);
@@ -396,12 +390,5 @@ public class RequestBuilder {
     } else {
       xmlHttpRequest.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
     }
-  }
-
-  // FIXME: workaround for this missing interface in Elemental2 1.0.0-beta-1.
-  @JsFunction
-  @FunctionalInterface
-  private interface OnreadystatechangeCallbackFn {
-    Object onInvoke(Event e);
   }
 }

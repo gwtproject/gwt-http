@@ -88,7 +88,7 @@ class ResponseImpl extends Response {
 
   @Override
   public int getStatusCode() {
-    return (int) xmlHttpRequest.status;
+    return xmlHttpRequest.status;
   }
 
   @Override
