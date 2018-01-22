@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-  errorprone "com.google.errorprone:error_prone_core:2.1.3"
+  errorprone "com.google.errorprone:error_prone_core:2.2.0"
 
   implementation "com.google.elemental2:elemental2-dom:1.0.0-RC1"
   implementation "com.google.elemental2:elemental2-core:1.0.0-RC1"
@@ -29,7 +29,10 @@ dependencies {
 sourceCompatibility = JavaVersion.VERSION_1_8
 tasks.withType(JavaCompile) {
   options.encoding = "UTF-8"
-  options.compilerArgs << "-Werror" << "-Xlint:all"
+  options.compilerArgs << "-Werror" << "-Xlint:all" << "-Xep:StringSplitter:OFF"
+  if (JavaVersion.current().isJava9Compatible()) {
+    options.compilerArgs << "--release" << "8"
+  }
 }
 
 jar {
