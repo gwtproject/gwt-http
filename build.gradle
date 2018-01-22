@@ -3,6 +3,7 @@ plugins {
   id "maven"
   id "net.ltgt.errorprone" version "0.0.13"
   id "com.github.sherter.google-java-format" version "0.6"
+  id "com.github.hierynomus.license" version "0.14.0"
 }
 
 group = "org.gwtproject.http"
@@ -57,4 +58,14 @@ javadoc {
 
 googleJavaFormat {
   toolVersion = "1.5"
+}
+
+license {
+  header = rootProject.file('LICENSE.header')
+  encoding = 'UTF-8'
+  skipExistingHeaders = true
+  mapping java: 'SLASHSTAR_STYLE'
+
+  ext.year = java.time.Year.now()
+  ext.name = 'The GWT Project Authors'
 }
