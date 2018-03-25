@@ -76,3 +76,7 @@ license {
     extra["year"] = Year.now()
     extra["name"] = "The GWT Project Authors"
 }
+
+apply {
+    from("gradle/ktlint.gradle.kts")
+}
