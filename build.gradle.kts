@@ -2,8 +2,7 @@ import java.time.Year
 
 plugins {
     `java-library`
-    maven
-    signing
+    id("local.maven-publish")
     id("local.ktlint")
     id("net.ltgt.errorprone") version "0.0.14"
     id("com.github.sherter.google-java-format") version "0.6"
