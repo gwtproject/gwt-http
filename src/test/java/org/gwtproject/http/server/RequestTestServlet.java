@@ -34,8 +34,7 @@ public class RequestTestServlet extends HttpServlet {
       try {
         Thread.sleep(5000);
       } catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        throw new RuntimeException(e);
       }
       response.setStatus(HttpServletResponse.SC_OK);
     }

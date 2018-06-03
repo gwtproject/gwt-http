@@ -4,7 +4,7 @@ plugins {
     `java-library`
     maven
     signing
-    id("net.ltgt.errorprone") version "0.0.13"
+    id("net.ltgt.errorprone") version "0.0.14"
     id("com.github.sherter.google-java-format") version "0.6"
     id("com.github.hierynomus.license") version "0.14.0"
 }
@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.2.0")
+    errorprone("com.google.errorprone:error_prone_core:2.3.1")
 
     implementation("com.google.elemental2:elemental2-dom:1.0.0-RC1")
     implementation("com.google.elemental2:elemental2-core:1.0.0-RC1")
