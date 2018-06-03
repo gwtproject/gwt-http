@@ -1,3 +1,5 @@
+package local
+
 val ktlint by configurations.creating
 
 repositories {

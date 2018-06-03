@@ -4,6 +4,7 @@ plugins {
     `java-library`
     maven
     signing
+    id("local.ktlint")
     id("net.ltgt.errorprone") version "0.0.14"
     id("com.github.sherter.google-java-format") version "0.6"
     id("com.github.hierynomus.license") version "0.14.0"
@@ -75,8 +76,4 @@ license {
 
     extra["year"] = Year.now()
     extra["name"] = "The GWT Project Authors"
-}
-
-apply {
-    from("gradle/ktlint.gradle.kts")
 }
