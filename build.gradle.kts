@@ -64,7 +64,7 @@ val javadoc by tasks.getting(Javadoc::class) {
 }
 
 googleJavaFormat {
-    toolVersion = "1.5"
+    toolVersion = "1.6"
 }
 
 license {
