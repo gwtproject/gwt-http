@@ -1,10 +1,12 @@
+import net.ltgt.gradle.errorprone.javacplugin.CheckSeverity
+import net.ltgt.gradle.errorprone.javacplugin.errorprone
 import java.time.Year
 
 plugins {
     `java-library`
     id("local.maven-publish")
     id("local.ktlint")
-    id("net.ltgt.errorprone") version "0.0.14"
+    id("net.ltgt.errorprone-javacplugin") version "0.5"
     id("com.github.sherter.google-java-format") version "0.6"
     id("com.github.hierynomus.license") version "0.14.0"
 }
@@ -18,6 +20,7 @@ repositories {
 
 dependencies {
     errorprone("com.google.errorprone:error_prone_core:2.3.1")
+    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
     implementation("com.google.elemental2:elemental2-dom:1.0.0-RC1")
     implementation("com.google.elemental2:elemental2-core:1.0.0-RC1")
@@ -33,10 +36,11 @@ java {
 }
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-    options.compilerArgs.addAll(arrayOf("-Werror", "-Xlint:all", "-Xep:StringSplitter:OFF"))
+    options.compilerArgs.addAll(arrayOf("-Werror", "-Xlint:all"))
     if (JavaVersion.current().isJava9Compatible) {
         options.compilerArgs.addAll(arrayOf("--release", "8"))
     }
+    options.errorprone.check("StringSplitter", CheckSeverity.OFF)
 }
 
 val jar by tasks.getting(Jar::class) {
