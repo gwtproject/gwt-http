@@ -44,7 +44,7 @@ tasks.withType<JavaCompile> {
 }
 
 val jar by tasks.getting(Jar::class) {
-    from(java.sourceSets["main"].allJava)
+    from(sourceSets["main"].allJava)
 }
 
 val test by tasks.getting(Test::class) {
@@ -57,7 +57,7 @@ val test by tasks.getting(Test::class) {
         "cache" to cacheDir
     ))
 
-    classpath += java.sourceSets["main"].allJava.sourceDirectories + java.sourceSets["test"].allJava.sourceDirectories
+    classpath += sourceSets["main"].allJava.sourceDirectories + sourceSets["test"].allJava.sourceDirectories
     include("**/*Suite.class")
     systemProperty("gwt.args", """-ea -draftCompile -batch module -war "$warDir" -workDir "$workDir" -runStyle HtmlUnit:Chrome""")
     systemProperty("gwt.persistentunitcachedir", cacheDir)
