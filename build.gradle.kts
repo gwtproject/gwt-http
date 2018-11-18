@@ -80,3 +80,32 @@ license {
     extra["year"] = Year.now()
     extra["name"] = "The GWT Project Authors"
 }
+
+open class J2clTranspile : DefaultTask() {
+    @CompileClasspath lateinit var classpath: FileCollection
+    @InputFiles @SkipWhenEmpty @PathSensitive(PathSensitivity.NAME_ONLY) lateinit var source: FileTree
+    @OutputFile lateinit var destinationFile: File
+    @Classpath lateinit var j2clClasspath: FileCollection
+
+    @TaskAction
+    fun compile() {
+        // TODO: incremental transpilation
+        project.javaexec {
+            main = "com.google.j2cl.transpiler.J2clCommandLineRunner"
+            classpath = j2clClasspath
+            args("-cp", this@J2clTranspile.classpath.asPath, "-d", destinationFile.path)
+            args(source)
+        }
+    }
+}
+
+project.findProperty("j2cl.transpiler.path")?.also { j2clTranspilerPath ->
+    val j2clJrePath = project.property("j2cl.jre.path")
+    val j2clTranspile by tasks.creating(J2clTranspile::class) {
+        destinationFile = project.file("$buildDir/j2clTranspile.zip")
+        j2clClasspath = project.files(j2clTranspilerPath)
+        source = sourceSets["main"].allJava
+        classpath = project.files(j2clJrePath, configurations.compileClasspath)
+    }
+    tasks["check"].dependsOn(j2clTranspile)
+}
