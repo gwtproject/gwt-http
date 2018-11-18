@@ -6,3 +6,6 @@ plugins {
 repositories {
     jcenter()
 }
+kotlinDslPluginOptions {
+    experimentalWarning.set(false)
+}
