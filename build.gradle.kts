@@ -1,12 +1,12 @@
-import net.ltgt.gradle.errorprone.javacplugin.CheckSeverity
-import net.ltgt.gradle.errorprone.javacplugin.errorprone
+import net.ltgt.gradle.errorprone.CheckSeverity
+import net.ltgt.gradle.errorprone.errorprone
 import java.time.Year
 
 plugins {
     `java-library`
     id("local.maven-publish")
     id("local.ktlint")
-    id("net.ltgt.errorprone-javacplugin") version "0.5"
+    id("net.ltgt.errorprone") version "0.6"
     id("com.github.sherter.google-java-format") version "0.7.1"
     id("com.github.hierynomus.license") version "0.14.0"
 }
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.3.1")
+    errorprone("com.google.errorprone:error_prone_core:2.3.2")
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
     implementation("com.google.elemental2:elemental2-dom:1.0.0-RC1")
