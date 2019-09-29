@@ -1,14 +1,14 @@
+import java.time.Year
 import net.ltgt.gradle.errorprone.CheckSeverity
 import net.ltgt.gradle.errorprone.errorprone
-import java.time.Year
 
 plugins {
     `java-library`
     id("local.maven-publish")
-    id("local.ktlint")
-    id("net.ltgt.errorprone") version "0.6"
-    id("com.github.sherter.google-java-format") version "0.7.1"
-    id("com.github.hierynomus.license") version "0.14.0"
+    id("net.ltgt.errorprone") version "0.8.1"
+    id("com.github.sherter.google-java-format") version "0.8"
+    id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
+    id("com.github.hierynomus.license") version "0.15.0"
 }
 
 group = "org.gwtproject.http"
@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.3.2")
+    errorprone("com.google.errorprone:error_prone_core:2.3.3")
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
     implementation("com.google.elemental2:elemental2-dom:1.0.0-RC1")
@@ -34,7 +34,7 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
-tasks.withType<JavaCompile> {
+tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
     options.compilerArgs.addAll(arrayOf("-Werror", "-Xlint:all"))
     if (JavaVersion.current().isJava9Compatible) {
@@ -43,32 +43,45 @@ tasks.withType<JavaCompile> {
     options.errorprone.check("StringSplitter", CheckSeverity.OFF)
 }
 
-val jar by tasks.getting(Jar::class) {
-    from(sourceSets["main"].allJava)
-}
+tasks {
+    jar {
+        from(sourceSets.main.map { it.allJava })
+    }
 
-val test by tasks.getting(Test::class) {
-    val warDir = file("$buildDir/gwt/www-test")
-    val workDir = file("$buildDir/gwt/work")
-    val cacheDir = file("$buildDir/gwt/cache")
-    outputs.dirs(mapOf(
-        "war" to warDir,
-        "work" to workDir,
-        "cache" to cacheDir
-    ))
+    test {
+        val warDir = file("$buildDir/gwt/www-test")
+        val workDir = file("$buildDir/gwt/work")
+        val cacheDir = file("$buildDir/gwt/cache")
+        outputs.dirs(
+            mapOf(
+                "war" to warDir,
+                "work" to workDir,
+                "cache" to cacheDir
+            )
+        )
 
-    classpath += sourceSets["main"].allJava.sourceDirectories + sourceSets["test"].allJava.sourceDirectories
-    include("**/*Suite.class")
-    systemProperty("gwt.args", """-ea -draftCompile -batch module -war "$warDir" -workDir "$workDir" -runStyle HtmlUnit:Chrome""")
-    systemProperty("gwt.persistentunitcachedir", cacheDir)
-}
+        classpath += sourceSets.main.get().allJava.sourceDirectories + sourceSets.test.get().allJava.sourceDirectories
+        include("**/*Suite.class")
+        systemProperty(
+            "gwt.args",
+            """-ea -draftCompile -batch module -war "$warDir" -workDir "$workDir" -runStyle HtmlUnit:Chrome"""
+        )
+        systemProperty("gwt.persistentunitcachedir", cacheDir)
+    }
 
-val javadoc by tasks.getting(Javadoc::class) {
-    (options as CoreJavadocOptions).addBooleanOption("Xdoclint:all,-missing", true)
+    javadoc {
+        (options as CoreJavadocOptions).addBooleanOption("Xdoclint:all,-missing", true)
+        // Workaround for https://github.com/gradle/gradle/issues/5630
+        (options as CoreJavadocOptions).addStringOption("sourcepath", "")
+    }
 }
 
 googleJavaFormat {
-    toolVersion = "1.6"
+    toolVersion = "1.7"
+}
+ktlint {
+    version.set("0.34.2")
+    enableExperimentalRules.set(true)
 }
 
 license {
@@ -81,9 +94,12 @@ license {
     extra["name"] = "The GWT Project Authors"
 }
 
-open class J2clTranspile : DefaultTask() {
+open class J2clTranspile : SourceTask() {
     @CompileClasspath lateinit var classpath: FileCollection
-    @InputFiles @SkipWhenEmpty @PathSensitive(PathSensitivity.NAME_ONLY) lateinit var source: FileTree
+    @InputFiles
+    @SkipWhenEmpty
+    @PathSensitive(PathSensitivity.NAME_ONLY)
+    override fun getSource(): FileTree = super.getSource()
     @OutputFile lateinit var destinationFile: File
     @Classpath lateinit var j2clClasspath: FileCollection
 
@@ -101,11 +117,13 @@ open class J2clTranspile : DefaultTask() {
 
 project.findProperty("j2cl.transpiler.path")?.also { j2clTranspilerPath ->
     val j2clJrePath = project.property("j2cl.jre.path")
-    val j2clTranspile by tasks.creating(J2clTranspile::class) {
-        destinationFile = project.file("$buildDir/j2clTranspile.zip")
-        j2clClasspath = project.files(j2clTranspilerPath)
-        source = sourceSets["main"].allJava
-        classpath = project.files(j2clJrePath, configurations.compileClasspath)
+    tasks {
+        val j2clTranspile by registering(J2clTranspile::class) {
+            destinationFile = project.file("$buildDir/j2clTranspile.zip")
+            j2clClasspath = project.files(j2clTranspilerPath)
+            source(sourceSets.main.map { it.allJava })
+            classpath = project.files(j2clJrePath, configurations.compileClasspath)
+        }
+        check { dependsOn(j2clTranspile) }
     }
-    tasks["check"].dependsOn(j2clTranspile)
 }
