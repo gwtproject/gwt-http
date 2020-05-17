@@ -5,9 +5,9 @@ import net.ltgt.gradle.errorprone.errorprone
 plugins {
     `java-library`
     id("local.maven-publish")
-    id("net.ltgt.errorprone") version "0.8.1"
+    id("net.ltgt.errorprone") version "1.1.1"
     id("com.github.sherter.google-java-format") version "0.8"
-    id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.github.hierynomus.license") version "0.15.0"
 }
 
@@ -19,16 +19,16 @@ repositories {
 }
 
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.3.3")
+    errorprone("com.google.errorprone:error_prone_core:2.3.4")
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
-    implementation("com.google.elemental2:elemental2-dom:1.0.0-RC1")
-    implementation("com.google.elemental2:elemental2-core:1.0.0-RC1")
-    implementation("com.google.jsinterop:base:1.0.0-RC1")
+    implementation("com.google.elemental2:elemental2-dom:1.0.0")
+    implementation("com.google.elemental2:elemental2-core:1.0.0")
+    implementation("com.google.jsinterop:base:1.0.0")
 
-    testImplementation("junit:junit:4.12")
-    testImplementation("com.google.gwt:gwt-user:2.8.2")
-    testImplementation("com.google.gwt:gwt-dev:2.8.2")
+    testImplementation("junit:junit:4.13")
+    testImplementation("com.google.gwt:gwt-user:2.9.0")
+    testImplementation("com.google.gwt:gwt-dev:2.9.0")
 }
 
 java {
@@ -80,7 +80,7 @@ googleJavaFormat {
     toolVersion = "1.7"
 }
 ktlint {
-    version.set("0.34.2")
+    version.set("0.36.0")
     enableExperimentalRules.set(true)
 }
 
