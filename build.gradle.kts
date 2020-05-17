@@ -11,6 +11,17 @@ plugins {
     id("com.github.hierynomus.license") version "0.15.0"
 }
 
+buildscript {
+    dependencyLocking {
+        lockAllConfigurations()
+        lockMode.set(LockMode.STRICT)
+    }
+}
+dependencyLocking {
+    lockAllConfigurations()
+    lockMode.set(LockMode.STRICT)
+}
+
 group = "org.gwtproject.http"
 version = "HEAD-SNAPSHOT"
 
