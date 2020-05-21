@@ -138,9 +138,7 @@ public class UrlBuilder {
    * Set a query parameter to a list of values. Each value in the list will be added as its own
    * key/value pair.
    *
-   * <h3>Example Output</h3>
-   *
-   * {@code ?mykey=value0&mykey=value1&mykey=value2 }
+   * <p>Example output: {@code ?mykey=value0&mykey=value1&mykey=value2 }
    *
    * @param key the key
    * @param values the list of values
