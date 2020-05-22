@@ -31,6 +31,10 @@ val sonatypeRepository = publishing.repositories.maven {
 val mavenPublication = publishing.publications.create<MavenPublication>("maven") {
     from(components["java"])
 
+    if (isSnapshot) {
+        version = "HEAD-SNAPSHOT"
+    }
+
     pom {
         name.set(provider { "$groupId:$artifactId" })
         description.set(provider { project.description ?: name.get() })
@@ -62,4 +66,4 @@ signing {
 }
 
 inline val Project.isSnapshot
-    get() = version.toString().endsWith("-SNAPSHOT")
+    get() = version == Project.DEFAULT_VERSION
