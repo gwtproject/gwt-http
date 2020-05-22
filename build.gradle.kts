@@ -81,6 +81,9 @@ tasks {
 
     javadoc {
         (options as CoreJavadocOptions).addBooleanOption("Xdoclint:all,-missing", true)
+        if (JavaVersion.current().isJava9Compatible) {
+            (options as CoreJavadocOptions).addBooleanOption("html5", true)
+        }
         // Workaround for https://github.com/gradle/gradle/issues/5630
         (options as CoreJavadocOptions).addStringOption("sourcepath", "")
     }
