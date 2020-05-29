@@ -19,6 +19,7 @@ import static elemental2.core.Global.*;
 
 import elemental2.core.JsRegExp;
 import elemental2.core.JsString;
+import jsinterop.base.Js;
 
 /**
  * Utility class for the encoding and decoding URLs in their entirety or by their individual
@@ -165,7 +166,8 @@ public final class URL {
 
   private static String decodeQueryStringImpl(String encodedURLComponent) {
     JsRegExp regexp = new JsRegExp("\\+", "g");
-    return decodeURIComponent(new JsString(encodedURLComponent).replace(regexp, "%20"));
+    return decodeURIComponent(
+        Js.<JsString>uncheckedCast(encodedURLComponent).replace(regexp, "%20"));
   }
 
   private static String encodeImpl(String decodedURL) {
@@ -178,7 +180,7 @@ public final class URL {
 
   private static String encodeQueryStringImpl(String decodedURLComponent) {
     JsRegExp regexp = new JsRegExp("%20", "g");
-    return new JsString(encodeURIComponent(decodedURLComponent)).replace(regexp, "+");
+    return Js.<JsString>uncheckedCast(encodeURIComponent(decodedURLComponent)).replace(regexp, "+");
   }
 
   private URL() {}
