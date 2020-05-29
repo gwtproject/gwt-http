@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Revision: 1.12 $ -->
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+    <servlet>
+        <servlet-name>RequestBuilderTestServlet</servlet-name>
+        <servlet-class>org.gwtproject.http.server.RequestBuilderTestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestTestServlet</servlet-name>
+        <servlet-class>org.gwtproject.http.server.RequestTestServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResponseTestServlet</servlet-name>
+        <servlet-class>org.gwtproject.http.server.ResponseTestServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RequestBuilderTestServlet</servlet-name>
+        <url-pattern>/testRequestBuilder/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RequestTestServlet</servlet-name>
+        <url-pattern>/testRequest/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResponseTestServlet</servlet-name>
+        <url-pattern>/testResponse/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>

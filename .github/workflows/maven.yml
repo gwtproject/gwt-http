@@ -1,0 +1,16 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # TODO: cache dependencies (taking into accounts: Maven plugins, snapshots, etc.)
+
+    - name: Build with Maven
+      run: mvn -V -B -ntp -U -e verify
+

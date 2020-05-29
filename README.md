@@ -1,18 +1,26 @@
-GWT HTTP
-========
+# gwt-http
+![GWT3/J2CL compatible](https://img.shields.io/badge/GWT3/J2CL-compatible-brightgreen.svg)
 
 A future-proof port of the `com.google.gwt.http.HTTP` GWT module,
 with no dependency on `gwt-user` (besides the Java Runtime Emulation),
 to prepare for GWT 3 / J2Cl.
 
-Browser compatibility
----------------------
+##  Browser compatibility
 
 The code should be compatible with all evergreen browsers,
 and Internet Explorer 10 and 11.
 
-Migrating from `c.g.g.http.HTTP`
---------------------------------
+### Dependency
+
+```xml
+<dependency>
+    <groupId>org.gwtproject.http</groupId>
+    <artifactId>gwt-http</artifactId>
+    <version>HEAD-SNAPSHOT</version>
+</dependency>
+```
+
+##  Migrating from `c.g.g.http.HTTP`
 
 1. Add the dependency to your build.
 

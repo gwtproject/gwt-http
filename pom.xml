@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.gwtproject.http</groupId>
+    <artifactId>gwt-http-parent</artifactId>
+
+    <version>HEAD-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <name>GWT HTTP Parent</name>
+    <description>Parent POM containing the gwt-http module and the test modules (gwt2- and j2cl-tests)</description>
+    <url>https://github.com/gwtproject/gwt-http</url>
+
+    <organization>
+        <name>The GWT Authors</name>
+        <url>https://github.com/gwtproject</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>The GWT Authors</name>
+            <organization>The GWT Project Authors</organization>
+            <url>https://github.com/gwtproject</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/gwtproject/gwt-http.git</connection>
+        <developerConnection>scm:git:ssh://github.com/gwtproject/gwt-http.git</developerConnection>
+        <url>https://github.com/gwtproject/gwt-http/tree/master</url>
+    </scm>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <modules>
+        <module>gwt-http</module>
+        <module>gwt-http-gwt2-tests</module>
+        <module>gwt-http-j2cl-tests</module>
+        <module>gwt-http-test-service</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven.deploy.plugin>3.0.0-M1</maven.deploy.plugin>
+        <maven.fmt.plugin>2.9</maven.fmt.plugin>
+        <maven.licence.plugin>3.0</maven.licence.plugin>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.gwtproject.http</groupId>
+            <artifactId>gwt-http</artifactId>
+            <version>HEAD-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>${maven.fmt.plugin}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.plugin}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${maven.licence.plugin}</version>
+                    <configuration>
+                        <header>LICENSE.header</header>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <skipExistingHeaders>true</skipExistingHeaders>
+                        <mapping>
+                            <java>SLASHSTAR_STYLE</java>
+                        </mapping>
+                        <includes>
+                            <include>src/test/java</include>
+                        </includes>
+                        <properties>
+                            <year>${project.inceptionYear}</year>
+                            <name>${project.organization.name}</name>
+                        </properties>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.4.28.v20200408</version>
+                    <configuration>
+                        <stopPort>9998</stopPort>
+                        <stopKey>STOP</stopKey>
+                        <httpConnector>
+                            <port>9999</port>
+                        </httpConnector>
+                        <webApp>
+                            <contextPath>/</contextPath>
+                        </webApp>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
