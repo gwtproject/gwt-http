@@ -166,7 +166,8 @@ public final class URL {
 
   private static String decodeQueryStringImpl(String encodedURLComponent) {
     JsRegExp regexp = new JsRegExp("\\+", "g");
-    return decodeURIComponent(Js.<JsString>cast(encodedURLComponent).replace(regexp, "%20"));
+    return decodeURIComponent(
+        Js.<JsString>uncheckedCast(encodedURLComponent).replace(regexp, "%20"));
   }
 
   private static String encodeImpl(String decodedURL) {
@@ -179,7 +180,7 @@ public final class URL {
 
   private static String encodeQueryStringImpl(String decodedURLComponent) {
     JsRegExp regexp = new JsRegExp("%20", "g");
-    return Js.<JsString>cast(encodeURIComponent(decodedURLComponent)).replace(regexp, "+");
+    return Js.<JsString>uncheckedCast(encodeURIComponent(decodedURLComponent)).replace(regexp, "+");
   }
 
   private URL() {}
