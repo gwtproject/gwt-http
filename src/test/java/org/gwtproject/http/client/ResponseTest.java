@@ -42,7 +42,7 @@ public class ResponseTest extends RequestTestBase {
     return "org.gwtproject.http.ResponseTest";
   }
 
-  /** Test method for {@link org.gwtproject.http.client.Response#getStatusCode()}. */
+  /** Test method for {@link Response#getStatusCode()}. */
   public void testGetStatusCode() {
     executeTest(
         new RequestCallback() {
@@ -59,7 +59,7 @@ public class ResponseTest extends RequestTestBase {
         });
   }
 
-  /** Test method for {@link org.gwtproject.http.client.Response#getStatusText()}. */
+  /** Test method for {@link Response#getStatusText()}. */
   public void testGetStatusText() {
     executeTest(
         new RequestCallback() {

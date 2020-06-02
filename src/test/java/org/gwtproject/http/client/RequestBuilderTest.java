@@ -39,8 +39,7 @@ public class RequestBuilderTest extends RequestTestBase {
   }
 
   /**
-   * Test method for {@link
-   * org.gwtproject.http.client.RequestBuilder#RequestBuilder(java.lang.String, java.lang.String)}.
+   * Test method for {@link RequestBuilder#RequestBuilder(String, String)}.
    *
    * <p>Test Cases:
    *
@@ -74,10 +73,7 @@ public class RequestBuilderTest extends RequestTestBase {
     }
   }
 
-  /**
-   * Test method for {@link
-   * org.gwtproject.http.client.RequestBuilder#RequestBuilder(java.lang.String, java.lang.String)}.
-   */
+  /** Test method for {@link RequestBuilder#RequestBuilder(String, String)}. */
   public void testRequestBuilderStringString_HTTPMethodRestrictionOverride() {
     new RequestBuilder(RequestBuilder.GET, "FOO");
 
@@ -181,8 +177,7 @@ public class RequestBuilderTest extends RequestTestBase {
   }
 
   /**
-   * Test method for {@link org.gwtproject.http.client.RequestBuilder#setHeader(java.lang.String,
-   * java.lang.String)}.
+   * Test method for {@link RequestBuilder#setHeader(String, String)}.
    *
    * <p>Test Cases:
    *
@@ -245,7 +240,7 @@ public class RequestBuilderTest extends RequestTestBase {
   }
 
   /**
-   * Test method for {@link org.gwtproject.http.client.RequestBuilder#setTimeoutMillis(int)}.
+   * Test method for {@link RequestBuilder#setTimeoutMillis(int)}.
    *
    * <p>Test Cases:
    *
@@ -278,7 +273,7 @@ public class RequestBuilderTest extends RequestTestBase {
   }
 
   /**
-   * Test method for {@link org.gwtproject.http.client.RequestBuilder#setTimeoutMillis(int)}.
+   * Test method for {@link RequestBuilder#setTimeoutMillis(int)}.
    *
    * <p>Test Cases:
    *

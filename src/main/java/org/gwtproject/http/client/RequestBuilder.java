@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import jsinterop.base.Js;
 
-/** Builder for constructing {@link org.gwtproject.http.client.Request} objects. */
+/** Builder for constructing {@link Request} objects. */
 public class RequestBuilder {
   /** HTTP request method constants. */
   public static final class Method {
@@ -86,9 +86,8 @@ public class RequestBuilder {
    *
    * @param httpMethod HTTP method to use for the request
    * @param url URL that has already has already been encoded. Please see {@link
-   *     org.gwtproject.http.client.URL#encode(String)}, {@link
-   *     org.gwtproject.http.client.URL#encodePathSegment(String)} and {@link
-   *     org.gwtproject.http.client.URL#encodeQueryString(String)} for how to do this.
+   *     URL#encode(String)}, {@link URL#encodePathSegment(String)} and {@link
+   *     URL#encodeQueryString(String)} for how to do this.
    * @throws IllegalArgumentException if the httpMethod or URL are empty
    * @throws NullPointerException if the httpMethod or the URL are null
    */
@@ -101,9 +100,8 @@ public class RequestBuilder {
    *
    * @param httpMethod HTTP method to use for the request
    * @param url URL that has already has already been URL encoded. Please see {@link
-   *     org.gwtproject.http.client.URL#encode(String)} and {@link
-   *     org.gwtproject.http.client.URL#encodePathSegment(String)} and {@link
-   *     org.gwtproject.http.client.URL#encodeQueryString(String)} for how to do this.
+   *     URL#encode(String)} and {@link URL#encodePathSegment(String)} and {@link
+   *     URL#encodeQueryString(String)} for how to do this.
    * @throws IllegalArgumentException if the httpMethod or URL are empty
    * @throws NullPointerException if the httpMethod or the URL are null
    */
@@ -268,12 +266,10 @@ public class RequestBuilder {
 
   /**
    * Sets the number of milliseconds to wait for a request to complete. Should the request timeout,
-   * the {@link org.gwtproject.http.client.RequestCallback#onError(Request, Throwable)} method will
-   * be called on the callback instance given to the {@link
-   * org.gwtproject.http.client.RequestBuilder#sendRequest(String, RequestCallback)} method. The
-   * callback method will receive an instance of the {@link
-   * org.gwtproject.http.client.RequestTimeoutException} class as its {@link java.lang.Throwable}
-   * argument.
+   * the {@link RequestCallback#onError(Request, Throwable)} method will be called on the callback
+   * instance given to the {@link RequestBuilder#sendRequest(String, RequestCallback)} method. The
+   * callback method will receive an instance of the {@link RequestTimeoutException} class as its
+   * {@link Throwable} argument.
    *
    * @param timeoutMillis number of milliseconds to wait before canceling the request, a value of
    *     zero disables timeouts

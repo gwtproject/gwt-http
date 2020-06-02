@@ -22,10 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.gwtproject.http.client.RequestBuilderTest;
 
-/**
- * Servlet component of the {@link org.gwtproject.http.client.RequestBuilderTest
- * RequestBuilderTest}.
- */
+/** Servlet component of the {@link RequestBuilderTest}. */
 @SuppressWarnings("serial")
 public class RequestBuilderTestServlet extends HttpServlet {
 

@@ -30,7 +30,7 @@ public class RequestTest extends RequestTestBase {
     return "org.gwtproject.http.RequestTest";
   }
 
-  /** Test method for {@link org.gwtproject.http.client.Request#cancel()}. */
+  /** Test method for {@link Request#cancel()}. */
   public void testCancel() {
     delayTestFinishForRequest();
 
@@ -61,10 +61,7 @@ public class RequestTest extends RequestTestBase {
     }
   }
 
-  /**
-   * Test method for {@link org.gwtproject.http.client.Request#Request(XMLHttpRequest, int,
-   * RequestCallback)}.
-   */
+  /** Test method for {@link Request#Request(XMLHttpRequest, int, RequestCallback)}. */
   public void testRequest() {
     RequestCallback callback =
         new RequestCallback() {
@@ -103,7 +100,7 @@ public class RequestTest extends RequestTestBase {
     }
   }
 
-  /** Test method for {@link org.gwtproject.http.client.Request#isPending()}. */
+  /** Test method for {@link Request#isPending()}. */
   public void testIsPending() {
     // delayTestFinishForRequest();
 

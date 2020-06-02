@@ -32,7 +32,7 @@ public class URLTest extends GWTTestCase {
     return "org.gwtproject.http.HTTP";
   }
 
-  /** Test method for {@link org.gwtproject.http.client.URL#decode(java.lang.String)}. */
+  /** Test method for {@link URL#decode(String)}. */
   public void testDecode() {
     try {
       URL.decode(null);
@@ -48,7 +48,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(DECODED_URL, actualURL);
   }
 
-  /** Test method for {@link org.gwtproject.http.client.URL#decodePathSegment(java.lang.String)}. */
+  /** Test method for {@link URL#decodePathSegment(String)}. */
   public void testDecodePathSegment() {
     try {
       URL.decodePathSegment(null);
@@ -66,7 +66,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
   }
 
-  /** Test method for {@link org.gwtproject.http.client.URL#decodeQueryString(java.lang.String)}. */
+  /** Test method for {@link URL#decodeQueryString(String)}. */
   public void testDecodeQueryString() {
     try {
       URL.decodeQueryString(null);
@@ -95,7 +95,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(DECODED_URL_COMPONENT, actualURLComponent);
   }
 
-  /** Test method for {@link org.gwtproject.http.client.URL#encode(java.lang.String)}. */
+  /** Test method for {@link URL#encode(String)}. */
   public void testEncode() {
     try {
       URL.encode(null);
@@ -111,7 +111,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(ENCODED_URL, actualURL);
   }
 
-  /** Test method for {@link org.gwtproject.http.client.URL#encodePathSegment(java.lang.String)}. */
+  /** Test method for {@link URL#encodePathSegment(String)}. */
   public void testEncodePathSegment() {
     try {
       URL.encodePathSegment(null);
@@ -127,7 +127,7 @@ public class URLTest extends GWTTestCase {
     assertEquals(ENCODED_URL_COMPONENT, actualURLComponent);
   }
 
-  /** Test method for {@link org.gwtproject.http.client.URL#encodeQueryString(java.lang.String)}. */
+  /** Test method for {@link URL#encodeQueryString(String)}. */
   public void testEncodeQueryString() {
     try {
       URL.encodeQueryString(null);

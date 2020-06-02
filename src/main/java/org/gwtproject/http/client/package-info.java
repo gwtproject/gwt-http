@@ -18,8 +18,7 @@
  * Provides the client-side classes and interfaces for making HTTP requests and processing the
  * associated responses.
  *
- * <p>Most applications will be interested in the {@link org.gwtproject.http.client.Request}, {@link
- * org.gwtproject.http.client.RequestBuilder}, {@link org.gwtproject.http.client.RequestCallback}
- * and {@link org.gwtproject.http.client.Response} classes.
+ * <p>Most applications will be interested in the {@link Request}, {@link RequestBuilder}, {@link
+ * RequestCallback} and {@link Response} classes.
  */
 package org.gwtproject.http.client;
