@@ -15,6 +15,9 @@
 <module>
   <inherits name='org.gwtproject.http.HTTP' />
 
+  <source path='client' />
+  <source path='shared' />
+
   <servlet path='/testRequestBuilder/*'
     class='org.gwtproject.http.server.RequestBuilderTestServlet' />
 </module>

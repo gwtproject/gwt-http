@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.gwtproject.http.client.RequestBuilderTest;
+import org.gwtproject.http.shared.RequestBuilderTestConstants;
 
 /** Servlet component of the {@link RequestBuilderTest}. */
 @SuppressWarnings("serial")
@@ -30,7 +31,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
   protected void doDelete(HttpServletRequest request, HttpServletResponse response) {
     try {
       response.setStatus(HttpServletResponse.SC_OK);
-      response.getWriter().print(RequestBuilderTest.SERVLET_DELETE_RESPONSE);
+      response.getWriter().print(RequestBuilderTestConstants.SERVLET_DELETE_RESPONSE);
     } catch (IOException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
@@ -45,18 +46,18 @@ public class RequestBuilderTestServlet extends HttpServlet {
         String value = request.getHeader("Foo");
         if (value.equals("Bar1")) {
           response.setStatus(HttpServletResponse.SC_OK);
-          response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+          response.getWriter().print(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
         } else {
           response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         break;
       case "/send_GET":
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        response.getWriter().write(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
         break;
       case "/sendRequest_GET":
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        response.getWriter().write(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
         break;
       case "/setTimeout/timeout":
         // cause a timeout on the client
@@ -65,7 +66,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
         } catch (InterruptedException e) {
         }
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        response.getWriter().print(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
         break;
       case "/setTimeout/noTimeout":
         // wait but not long enough to timeout
@@ -74,7 +75,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
         } catch (InterruptedException e) {
         }
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+        response.getWriter().print(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
         break;
       case "/user/pass":
         String auth = request.getHeader("Authorization");
@@ -83,7 +84,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
           response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
           response.setStatus(HttpServletResponse.SC_OK);
-          response.getWriter().print(RequestBuilderTest.SERVLET_GET_RESPONSE);
+          response.getWriter().print(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
         }
         break;
       default:
@@ -101,7 +102,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     try {
       if (request.getPathInfo().equals("/sendRequest_POST")) {
-        response.getWriter().print(RequestBuilderTest.SERVLET_POST_RESPONSE);
+        response.getWriter().print(RequestBuilderTestConstants.SERVLET_POST_RESPONSE);
         response.setStatus(HttpServletResponse.SC_OK);
       } else {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -117,7 +118,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
     BufferedReader reader = request.getReader();
     String content = reader.readLine();
     if (content != null && content.equals("<html><body>Put Me</body></html>")) {
-      response.getWriter().print(RequestBuilderTest.SERVLET_PUT_RESPONSE);
+      response.getWriter().print(RequestBuilderTestConstants.SERVLET_PUT_RESPONSE);
       response.setStatus(HttpServletResponse.SC_OK);
     } else {
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

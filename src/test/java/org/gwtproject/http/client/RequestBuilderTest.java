@@ -15,19 +15,18 @@
  */
 package org.gwtproject.http.client;
 
+import static org.gwtproject.http.shared.RequestBuilderTestConstants.SERVLET_DELETE_RESPONSE;
+import static org.gwtproject.http.shared.RequestBuilderTestConstants.SERVLET_GET_RESPONSE;
+import static org.gwtproject.http.shared.RequestBuilderTestConstants.SERVLET_HEAD_RESPONSE;
+import static org.gwtproject.http.shared.RequestBuilderTestConstants.SERVLET_POST_RESPONSE;
+import static org.gwtproject.http.shared.RequestBuilderTestConstants.SERVLET_PUT_RESPONSE;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 
 /** Test cases for the {@link RequestBuilder} class. */
 public class RequestBuilderTest extends RequestTestBase {
-
-  public static final String SERVLET_DELETE_RESPONSE = "delete";
-  public static final String SERVLET_GET_RESPONSE = "get";
-  public static final String SERVLET_POST_RESPONSE = "post";
-  // W3C's XMLHttpRequest requires it be the empty string
-  public static final String SERVLET_HEAD_RESPONSE = "";
-  public static final String SERVLET_PUT_RESPONSE = "put";
 
   private static String getTestBaseURL() {
     return GWT.getModuleBaseURL() + "testRequestBuilder/";

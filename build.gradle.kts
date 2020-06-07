@@ -53,6 +53,15 @@ tasks.withType<JavaCompile>().configureEach {
     options.errorprone.check("StringSplitter", CheckSeverity.OFF)
 }
 
+sourceSets {
+    test {
+        java {
+            // Code that is shared with J2Cl tests
+            srcDir("src/testFixtures/java")
+        }
+    }
+}
+
 tasks {
     jar {
         from(sourceSets.main.map { it.allJava })
