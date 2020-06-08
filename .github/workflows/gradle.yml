@@ -10,7 +10,7 @@ jobs:
         java_version: [ 8, 11, 14 ]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
 
     - name: Set up JDK ${{ matrix.java_version }}
       uses: actions/setup-java@v1
@@ -24,13 +24,29 @@ jobs:
         key: wrapper-6.4.1
 
     - name: Cache dependencies
-      uses: actions/cache@v1
+      id: cache-dependencies
+      uses: actions/cache@v2
       with:
         path: ~/.gradle/caches/modules-2/
         key: deps-${{ hashFiles('**/*gradle.lockfile') }}
+
+    - name: Get Maven version
+      run: mvn --version |head -1 > mvn-version
+
+    - name: Cache Maven dependencies (for J2Cl tests)
+      id: cache-maven-dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository/
+        key: mvn-deps-${{ hashFiles('mvn-version') }}-${{ hashFiles('pom-j2cl-test.xml') }}
 
     - name: Build with Gradle
       run: ./gradlew build
 
     - name: Before cache
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: rm -f ~/.gradle/caches/modules-2/*.lock ~/.gradle/caches/modules-2/gc.properties
+
+    - name: Before Maven cache
+      if: steps.cache-maven-dependencies.outputs.cache-hit != 'true'
+      run: shopt -s globstar && rm -rf ~/.m2/repository/**/*-SNAPSHOT/ ~/.m2/repository/org/gwtproject/**/LOCAL/
