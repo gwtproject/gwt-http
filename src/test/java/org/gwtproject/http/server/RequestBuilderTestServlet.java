@@ -17,6 +17,7 @@ package org.gwtproject.http.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import org.gwtproject.http.shared.RequestBuilderTestConstants;
 
 /** Servlet component of the {@link RequestBuilderTest}. */
 @SuppressWarnings("serial")
+@WebServlet("/testRequestBuilder/*")
 public class RequestBuilderTestServlet extends HttpServlet {
 
   @Override

@@ -17,12 +17,14 @@ package org.gwtproject.http.server;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** TODO: document me. */
 @SuppressWarnings("serial")
+@WebServlet("/testResponse/*")
 public class ResponseTestServlet extends HttpServlet {
 
   @Override

@@ -100,6 +100,7 @@ tasks {
 
 googleJavaFormat {
     toolVersion = "1.7"
+    exclude("target/")
 }
 ktlint {
     version.set("0.36.0")
@@ -116,36 +117,34 @@ license {
     extra["name"] = "The GWT Project Authors"
 }
 
-open class J2clTranspile : SourceTask() {
-    @CompileClasspath lateinit var classpath: FileCollection
-    @InputFiles
-    @SkipWhenEmpty
-    @PathSensitive(PathSensitivity.NAME_ONLY)
-    override fun getSource(): FileTree = super.getSource()
-    @OutputFile lateinit var destinationFile: File
-    @Classpath lateinit var j2clClasspath: FileCollection
-
-    @TaskAction
-    fun compile() {
-        // TODO: incremental transpilation
-        project.javaexec {
-            main = "com.google.j2cl.transpiler.J2clCommandLineRunner"
-            classpath = j2clClasspath
-            args("-cp", this@J2clTranspile.classpath.asPath, "-d", destinationFile.path)
-            args(source)
-        }
-    }
+//
+// J2Cl tests
+//
+// Because there's only Maven tooling for J2Cl (and specifically tests), we publish
+// the JAR to the local Maven repository under a fixed (non-snapshot) version, and
+// then fork a Maven build.
+//
+val j2clTestPublication = publishing.publications.create<MavenPublication>("j2clTest") {
+    from(components["java"])
+    version = "LOCAL"
 }
+tasks {
+    val j2clTest by registering(Exec::class) {
+        shouldRunAfter(test)
+        dependsOn("publishJ2clTestPublicationToMavenLocal")
+        inputs.files(compileTestJava)
+        inputs.file("pom-j2cl-test.xml")
+        inputs.dir("src/j2cl-test")
+        outputs.dir("target")
 
-project.findProperty("j2cl.transpiler.path")?.also { j2clTranspilerPath ->
-    val j2clJrePath = project.property("j2cl.jre.path")
-    tasks {
-        val j2clTranspile by registering(J2clTranspile::class) {
-            destinationFile = project.file("$buildDir/j2clTranspile.zip")
-            j2clClasspath = project.files(j2clTranspilerPath)
-            source(sourceSets.main.map { it.allJava })
-            classpath = project.files(j2clJrePath, configurations.compileClasspath)
-        }
-        check { dependsOn(j2clTranspile) }
+        commandLine("mvn", "-V", "-B", "-ntp", "-U", "-e", "-f", "pom-j2cl-test.xml", "verify")
+    }
+
+    check {
+        dependsOn(j2clTest)
+    }
+
+    withType<PublishToMavenRepository>().configureEach {
+        onlyIf { publication != j2clTestPublication }
     }
 }
