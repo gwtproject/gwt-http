@@ -132,8 +132,11 @@ tasks {
     val j2clTest by registering(Exec::class) {
         shouldRunAfter(test)
         dependsOn("publishJ2clTestPublicationToMavenLocal")
-        inputs.files(compileTestJava)
+        inputs.files(sourceSets.main.map { it.runtimeClasspath }).withNormalizer(ClasspathNormalizer::class)
+        // For the servlets
+        inputs.files(compileTestJava).withNormalizer(ClasspathNormalizer::class)
         inputs.file("pom-j2cl-test.xml")
+        inputs.dir("src/testFixtures")
         inputs.dir("src/j2cl-test")
         outputs.dir("target")
 
