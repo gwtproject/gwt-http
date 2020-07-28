@@ -48,19 +48,19 @@
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
       <artifactId>junit-annotations</artifactId>
-      <version>0.7-SNAPSHOT</version>
+      <version>0.8-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
       <artifactId>junit-emul</artifactId>
-      <version>0.7-SNAPSHOT</version>
+      <version>0.8-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.vertispan.j2cl</groupId>
       <artifactId>junit-emul</artifactId>
-      <version>0.7-SNAPSHOT</version>
+      <version>0.8-SNAPSHOT</version>
       <scope>test</scope>
       <classifier>sources</classifier>
     </dependency>
@@ -82,7 +82,7 @@
       <plugin>
         <groupId>com.vertispan.j2cl</groupId>
         <artifactId>j2cl-maven-plugin</artifactId>
-        <version>0.15-SNAPSHOT</version>
+        <version>0.16-SNAPSHOT</version>
         <configuration>
           <compilationLevel>ADVANCED</compilationLevel>
           <defines>
