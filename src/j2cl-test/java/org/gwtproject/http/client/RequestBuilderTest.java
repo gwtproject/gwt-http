@@ -25,7 +25,6 @@ import static org.junit.Assert.fail;
 
 import com.google.j2cl.junit.apt.J2clTestInput;
 import elemental2.promise.Promise;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /** Test cases for the {@link RequestBuilder} class. */
@@ -296,9 +295,11 @@ public class RequestBuilderTest extends RequestTestBase {
    * <p>XHR handling is synchronous in HtmlUnit at present (svn r5607).
    */
   @Test(timeout = REQUEST_TIMEOUT)
-  @Ignore(
-      "XHR handling is synchronous in HtmlUnit (and HtmlUnit vs a real browser cannot be detected at runtime)")
   public Promise<Void> testSetTimeout_timeout() throws RequestException {
+    if ("htmlunit".equals(System.getProperty("test.webdriver", "htmlunit"))) {
+      // XHR handling is synchronous in HtmlUnit
+      return Promise.resolve((Void) null);
+    }
     RequestBuilder builder =
         new RequestBuilder(RequestBuilder.GET, getTestBaseURL() + "setTimeout/timeout");
     builder.setTimeoutMillis(2000);

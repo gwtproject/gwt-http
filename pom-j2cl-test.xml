@@ -90,6 +90,7 @@
           <compilationLevel>ADVANCED</compilationLevel>
           <defines>
             <test.baseUrl>http://localhost:${jetty.http.port}/</test.baseUrl>
+            <test.webdriver>${webdriver}</test.webdriver>
           </defines>
         </configuration>
         <executions>
