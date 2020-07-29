@@ -41,7 +41,7 @@ jobs:
         key: mvn-deps-${{ hashFiles('mvn-version') }}-${{ hashFiles('pom-j2cl-test.xml') }}
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build -Pj2clTest.webdriver=chrome
 
     - name: Before cache
       if: steps.cache-dependencies.outputs.cache-hit != 'true'
