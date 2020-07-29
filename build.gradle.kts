@@ -140,7 +140,10 @@ tasks {
         inputs.dir("src/j2cl-test")
         outputs.dir("target")
 
-        commandLine("mvn", "-V", "-B", "-ntp", "-U", "-e", "-f", "pom-j2cl-test.xml", "verify")
+        val webdriver = findProperty("j2clTest.webdriver") ?: "htmlunit"
+        inputs.property("webdriver", webdriver)
+
+        commandLine("mvn", "-V", "-B", "-ntp", "-U", "-e", "-f", "pom-j2cl-test.xml", "verify", "-Dwebdriver=$webdriver")
     }
 
     check {
