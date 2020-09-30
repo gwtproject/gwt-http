@@ -32,8 +32,8 @@ dependencies {
     errorprone("com.google.errorprone:error_prone_core:2.3.4")
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
-    implementation("com.google.elemental2:elemental2-dom:1.0.0")
-    implementation("com.google.elemental2:elemental2-core:1.0.0")
+    implementation("com.google.elemental2:elemental2-dom:1.1.0")
+    implementation("com.google.elemental2:elemental2-core:1.1.0")
     implementation("com.google.jsinterop:base:1.0.0")
 
     testImplementation("junit:junit:4.13")
