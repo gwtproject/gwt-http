@@ -17,19 +17,6 @@ jobs:
       with:
         java-version: ${{ matrix.java_version }}
 
-    - name: Cache Gradle wrapper
-      uses: actions/cache@v1
-      with:
-        path: ~/.gradle/wrapper/dists/gradle-6.4.1-bin/
-        key: wrapper-6.8.2
-
-    - name: Cache dependencies
-      id: cache-dependencies
-      uses: actions/cache@v2
-      with:
-        path: ~/.gradle/caches/modules-2/
-        key: deps-${{ hashFiles('**/*gradle.lockfile') }}
-
     - name: Get Maven version
       run: mvn --version |head -1 > mvn-version
 
@@ -41,11 +28,13 @@ jobs:
         key: mvn-deps-${{ hashFiles('mvn-version') }}-${{ hashFiles('pom-j2cl-test.xml') }}
 
     - name: Build with Gradle
-      run: ./gradlew build -Pj2clTest.webdriver=chrome
-
-    - name: Before cache
-      if: steps.cache-dependencies.outputs.cache-hit != 'true'
-      run: rm -f ~/.gradle/caches/modules-2/*.lock ~/.gradle/caches/modules-2/gc.properties
+      uses: eskatos/gradle-command-action@v1
+      with:
+        arguments: build -Pj2clTest.webdriver=chrome
+        wrapper-cache-enabled: true
+        dependencies-cache-enabled: true
+        dependencies-cache-key: '**/*gradle.lockfile'
+        dependencies-cache-exact: true
 
     - name: Before Maven cache
       if: steps.cache-maven-dependencies.outputs.cache-hit != 'true'
