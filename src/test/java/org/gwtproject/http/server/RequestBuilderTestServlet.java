@@ -66,6 +66,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
         try {
           Thread.sleep(5000);
         } catch (InterruptedException e) {
+          throw new AssertionError(e);
         }
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
@@ -75,6 +76,7 @@ public class RequestBuilderTestServlet extends HttpServlet {
         try {
           Thread.sleep(1000);
         } catch (InterruptedException e) {
+          throw new AssertionError(e);
         }
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print(RequestBuilderTestConstants.SERVLET_GET_RESPONSE);
