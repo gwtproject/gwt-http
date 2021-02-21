@@ -1,13 +1,10 @@
 import net.ltgt.gradle.errorprone.errorprone
-import java.time.Year
 
 plugins {
     `java-library`
     id("local.maven-publish")
     id("net.ltgt.errorprone") version "1.3.0"
-    id("com.github.sherter.google-java-format") version "0.9"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
-    id("com.github.hierynomus.license") version "0.15.0"
+    id("com.diffplug.spotless") version "5.10.2"
 }
 
 buildscript {
@@ -97,23 +94,15 @@ tasks {
     }
 }
 
-googleJavaFormat {
-    toolVersion = "1.7"
-    exclude("target/")
-}
-ktlint {
-    version.set("0.40.0")
-    enableExperimentalRules.set(true)
-}
-
-license {
-    header = rootProject.file("LICENSE.header")
-    encoding = "UTF-8"
-    skipExistingHeaders = true
-    mapping("java", "SLASHSTAR_STYLE")
-
-    extra["year"] = Year.now()
-    extra["name"] = "The GWT Project Authors"
+spotless {
+    java {
+        target(sourceSets.map { it.allJava }, fileTree("src/j2cl-test/java") { include("**/*.java") })
+        googleJavaFormat("1.7")
+        licenseHeaderFile("LICENSE.header")
+    }
+    kotlinGradle {
+        ktlint("0.40.0")
+    }
 }
 
 //
