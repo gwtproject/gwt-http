@@ -106,7 +106,7 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.4.36.v20210114</version>
+        <version>9.4.45.v20220203</version>
         <configuration>
           <supportedPackagings>
             <packaging>jar</packaging>
@@ -137,7 +137,7 @@
           <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlets</artifactId>
-            <version>9.4.36.v20210114</version>
+            <version>9.4.45.v20220203</version>
           </dependency>
         </dependencies>
       </plugin>

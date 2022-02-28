@@ -3,8 +3,8 @@ import net.ltgt.gradle.errorprone.errorprone
 plugins {
     `java-library`
     id("local.maven-publish")
-    id("net.ltgt.errorprone") version "1.3.0"
-    id("com.diffplug.spotless") version "5.10.2"
+    id("net.ltgt.errorprone") version "2.0.2"
+    id("com.diffplug.spotless") version "6.3.0"
 }
 
 buildscript {
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.5.1")
+    errorprone("com.google.errorprone:error_prone_core:2.10.0")
     errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
 
     implementation("com.google.elemental2:elemental2-dom:1.1.0")
@@ -101,7 +101,7 @@ spotless {
         licenseHeaderFile("LICENSE.header")
     }
     kotlinGradle {
-        ktlint("0.40.0")
+        ktlint("0.44.0")
     }
 }
 
