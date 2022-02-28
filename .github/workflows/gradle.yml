@@ -35,7 +35,7 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@v1
       with:
-        arguments: build -Pj2clTest.webdriver=chrome
+        arguments: :build-logic:build build -Pj2clTest.webdriver=chrome
         distributions-cache-enabled: true
         dependencies-cache-enabled: true
         dependencies-cache-key: '**/*gradle.lockfile'
