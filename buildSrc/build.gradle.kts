@@ -14,9 +14,6 @@ dependencyLocking {
 repositories {
     mavenCentral()
 }
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
-}
 spotless {
     kotlinGradle {
         target("**/*.gradle.kts")
