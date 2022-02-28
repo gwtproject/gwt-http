@@ -35,7 +35,8 @@ jobs:
         distributions-cache-enabled: true
         dependencies-cache-enabled: true
         dependencies-cache-key: '**/*gradle.lockfile'
-        dependencies-cache-exact: true
+        dependencies-cache-exact: ${{ github.ref == 'refs/heads/master' }}
+        cache-read-only: ${{ github.ref != 'refs/heads/master' }}
 
     - name: Before Maven cache
       if: steps.cache-maven-dependencies.outputs.cache-hit != 'true'
