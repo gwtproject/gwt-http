@@ -1,7 +1,7 @@
 plugins {
     `java-gradle-plugin`
     `kotlin-dsl`
-    id("com.diffplug.spotless") version "6.3.0"
+    alias(libs.plugins.spotless)
 }
 buildscript {
     dependencyLocking {
@@ -20,6 +20,6 @@ kotlinDslPluginOptions {
 spotless {
     kotlinGradle {
         target("**/*.gradle.kts")
-        ktlint("0.44.0")
+        ktlint(libs.versions.ktlint.get())
     }
 }

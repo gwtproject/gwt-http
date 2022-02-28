@@ -1,0 +1,21 @@
+[versions]
+ktlint = "0.44.0"
+googleJavaFormat = "1.7" # last JDK-8-compatible version
+
+elemental2 = "1.1.0"
+gwt = "2.9.0"
+
+[libraries]
+errorprone-core = "com.google.errorprone:error_prone_core:2.10.0"  # last JDK-8-compatible version
+errorprone-javac = "com.google.errorprone:javac:9+181-r4173-1"
+elemental2-core = { module = "com.google.elemental2:elemental2-core", version.ref = "elemental2" }
+elemental2-dom = { module = "com.google.elemental2:elemental2-dom", version.ref = "elemental2" }
+jsinterop-base = "com.google.jsinterop:base:1.0.0"
+
+junit = "junit:junit:4.13.2"
+gwt-user = { module = "com.google.gwt:gwt-user", version.ref = "gwt" }
+gwt-dev = { module = "com.google.gwt:gwt-dev", version.ref = "gwt" }
+
+[plugins]
+errorprone = "net.ltgt.errorprone:2.0.2"
+spotless = "com.diffplug.spotless:6.3.0"

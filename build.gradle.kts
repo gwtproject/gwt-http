@@ -3,8 +3,8 @@ import net.ltgt.gradle.errorprone.errorprone
 plugins {
     `java-library`
     id("local.maven-publish")
-    id("net.ltgt.errorprone") version "2.0.2"
-    id("com.diffplug.spotless") version "6.3.0"
+    alias(libs.plugins.errorprone)
+    alias(libs.plugins.spotless)
 }
 
 buildscript {
@@ -25,16 +25,16 @@ repositories {
 }
 
 dependencies {
-    errorprone("com.google.errorprone:error_prone_core:2.10.0")
-    errorproneJavac("com.google.errorprone:javac:9+181-r4173-1")
+    errorprone(libs.errorprone.core)
+    errorproneJavac(libs.errorprone.javac)
 
-    implementation("com.google.elemental2:elemental2-dom:1.1.0")
-    implementation("com.google.elemental2:elemental2-core:1.1.0")
-    implementation("com.google.jsinterop:base:1.0.0")
+    implementation(libs.elemental2.dom)
+    implementation(libs.elemental2.core)
+    implementation(libs.jsinterop.base)
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("com.google.gwt:gwt-user:2.9.0")
-    testImplementation("com.google.gwt:gwt-dev:2.9.0")
+    testImplementation(libs.junit)
+    testImplementation(libs.gwt.user)
+    testImplementation(libs.gwt.dev)
 }
 
 java {
@@ -97,11 +97,11 @@ tasks {
 spotless {
     java {
         target(sourceSets.map { it.allJava }, fileTree("src/j2cl-test/java") { include("**/*.java") })
-        googleJavaFormat("1.7")
+        googleJavaFormat(libs.versions.googleJavaFormat.get())
         licenseHeaderFile("LICENSE.header")
     }
     kotlinGradle {
-        ktlint("0.44.0")
+        ktlint(libs.versions.ktlint.get())
     }
 }
 
